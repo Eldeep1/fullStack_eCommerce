@@ -2,6 +2,7 @@ package com.e_commerce.e_commerce.services.auth.register;
 
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,9 +16,12 @@ import com.e_commerce.e_commerce.helper.ResponseHelper;
 @RequestMapping("market")
 public class RegisterController {
     
-    RegisterServices registerServices=new RegisterServices();
-    @PostMapping("auth/signup")
+    @Autowired
+    RegisterServices registerServices;
+
+    @PostMapping("signup")
     public ResponseEntity<Object> signup(@RequestBody Map<String, String> credentials) {
+
         String userName = credentials.get("userName");
         String firstName = credentials.get("firstName");
         String lastName = credentials.get("lastName");

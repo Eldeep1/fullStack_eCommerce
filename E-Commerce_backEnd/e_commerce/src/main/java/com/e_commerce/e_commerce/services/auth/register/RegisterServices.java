@@ -1,7 +1,11 @@
 package com.e_commerce.e_commerce.services.auth.register;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+@Service
 public class RegisterServices {
-    RegisterModel registerModel=new RegisterModel();
+    @Autowired
+    RegisterModel registerModel;
 
     public  String signUp(String firstName, String lastName,String userName,String email, String password){
         

@@ -2,6 +2,7 @@ package com.e_commerce.e_commerce.services.auth.login;
 
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,10 +17,11 @@ import com.e_commerce.e_commerce.models.User;
 @RestController
 @RequestMapping("market")
 public class LoginController {
-    private LoginServices loginServices = new LoginServices();
+    @Autowired
+    private LoginServices loginServices;
     private ResponseHelper responseHelper = new ResponseHelper();
 
-    @PostMapping("auth/login")
+    @PostMapping("login")
     public ResponseEntity<Object> loginUser(@RequestBody Map<String, String> credentials) {
         String email = credentials.get("email");
         String password = credentials.get("password");

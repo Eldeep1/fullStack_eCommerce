@@ -6,10 +6,12 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Component;
 
 import com.e_commerce.e_commerce.models.User;
+import com.e_commerce.e_commerce.repositories.UserRepository;
 @Component
 public class RegisterModel {
     @Autowired
-    RegisterRepository registerRepository;
+    UserRepository userRepository;
+
     
     public  String createUser(String firstName, String lastName,String userName,String email, String password) {
         if(Boolean.TRUE.equals(checkForEmail(email))){
@@ -20,7 +22,7 @@ public class RegisterModel {
             //but for now, let's assume that the token is fixed...
             User user= new User("123456ssdfa23", firstName, lastName, userName, email, password);
             try {
-                registerRepository.save(user);
+                userRepository.save(user);
                 return "created successfully";
             } catch (DataAccessException e) {
                 return "database error";
@@ -30,7 +32,7 @@ public class RegisterModel {
     }
 
     private Boolean checkForEmail(String email) {
-        User user = registerRepository.findByEmail(email);
+        User user = userRepository.findByEmail(email);
         if (user==null) {
 return false;       
  }

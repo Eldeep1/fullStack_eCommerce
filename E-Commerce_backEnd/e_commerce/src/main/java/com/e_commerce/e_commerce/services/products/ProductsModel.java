@@ -1,6 +1,7 @@
 package com.e_commerce.e_commerce.services.products;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -18,5 +19,9 @@ public class ProductsModel {
 
     public List<Products> searchForProduct(String keyword){
         return productRepository.searchForProducts(keyword);
+    }
+    public Products getProduct(int productId){
+        Optional<Products> optionalProduct = productRepository.findById(productId);
+        return optionalProduct.orElse(null); // Or throw an exception if necessary
     }
 }

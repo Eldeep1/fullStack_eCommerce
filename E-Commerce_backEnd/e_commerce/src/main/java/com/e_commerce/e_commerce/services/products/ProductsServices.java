@@ -15,4 +15,7 @@ public class ProductsServices {
     public List<Products> searchForProduct(String keyword){
         return productsModel.searchForProduct(keyword);
     }
+    public Products getProduct(int productId){
+        return productsModel.getProduct(productId);
+    }
 }

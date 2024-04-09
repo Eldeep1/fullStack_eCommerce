@@ -7,7 +7,9 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan({
 	"com.e_commerce.e_commerce.services.auth.login",
  	"com.e_commerce.e_commerce.services.auth.register", 
-	"com.e_commerce.e_commerce.services.products"
+	"com.e_commerce.e_commerce.services.products",
+	"com.e_commerce.e_commerce.services.Orders",
+	"com.e_commerce.e_commerce.services.cart",
 })
 
 @SpringBootApplication

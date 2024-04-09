@@ -32,7 +32,6 @@ public class Products {
         data.put("productName", productName);
         data.put("productPrice", productPrice);
         data.put("productDescription", productDescription);
-        System.out.println(porductImage);
         data.put("porductImage", porductImage);
 
         return data;

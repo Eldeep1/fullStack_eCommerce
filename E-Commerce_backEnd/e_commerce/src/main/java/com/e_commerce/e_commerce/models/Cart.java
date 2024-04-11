@@ -34,7 +34,7 @@ public class Cart {
         return data;
     }
 
-    public int cartId() {
+    public int getCartId() {
         return cartId;
     }
      public int getUserId() {

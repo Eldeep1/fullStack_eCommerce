@@ -17,4 +17,4 @@ To observe the effects of running SQL queries, it's essential to configure your 
 - **Username:** root
 - **Password:** 1234
 
-You can modify these credentials in the `DatabaseHelper` class to match your database setup.
+You can modify these credentials in the `Application.properties`  to match your database setup.

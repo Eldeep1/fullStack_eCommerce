@@ -44,9 +44,9 @@ public class CartController {
 
     @PostMapping("cart/remove")
     public ResponseEntity<Object> removeCartFromItems(@RequestBody Map<String, Object> data) {
-        int orderId=(int) data.get("orderId");
+        int cartId=(int) data.get("cartId");
         
-        return cartModel.removeFromCart(orderId)==true?
+        return cartModel.removeFromCart(cartId)==true?
          responseHelper.createSuccessResponse("item removed Succssfully", null):
          responseHelper.createErrorResponse(HttpStatus.UNAUTHORIZED, "failed adding the item",null);
     }

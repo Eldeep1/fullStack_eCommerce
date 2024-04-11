@@ -5,14 +5,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.e_commerce.e_commerce.models.User;
+import com.e_commerce.e_commerce.repositories.UserRepository;
 @Component
 public class LoginModel {
     @Autowired
-    private  LoginRepository loginRepository;
+    private  UserRepository userRepository;
 
 
 
     public User login(String email, String password) {
-        return loginRepository.findByEmailAndPassword(email, password);
+        return userRepository.findByEmailAndPassword(email, password);
     }
 }

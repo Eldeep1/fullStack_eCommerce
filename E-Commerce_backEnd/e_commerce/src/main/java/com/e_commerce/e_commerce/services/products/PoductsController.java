@@ -39,7 +39,7 @@ public class PoductsController {
         }
     }
 
-    @GetMapping("/products/oneProduct")
+    @GetMapping("/oneProduct")
     public ResponseEntity<Object> getProductById(@RequestParam("pID") int productId) {
         Products product = productsServices.getProduct(productId);
         if (product != null) {

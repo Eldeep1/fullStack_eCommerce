@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.e_commerce.e_commerce.helper.ResponseHelper;
 import com.e_commerce.e_commerce.models.Orders;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,9 +23,8 @@ public class OrdersController {
     OrdersModel ordersModel;
     private ResponseHelper responseHelper = new ResponseHelper();
 
-    @PostMapping("/Orders")
-    public ResponseEntity<Object> getUserOrders(@RequestBody Map<String, Integer> data) {
-        int userID=data.get("userId");
+    @GetMapping("/Orders")
+    public ResponseEntity<Object> getUserOrders(@RequestParam("uid") int userID) {
         try {
             return responseHelper.createSuccessResponse("Orders Loaded Successfully",
                     ordersModel.getUserOrders(userID));

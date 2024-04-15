@@ -9,7 +9,7 @@ public class ResponseHelper {
     private static final boolean SUCCESS_STATUS = true;
     private static final boolean ERROR_STATUS = false;
 
-//
+
     //we used linked hash map instead of normal hash map so that the api answer be on a specific order
     private  Map<String, Object> generateResponse(boolean status, String message, Object data) {
         Map<String, Object> responseMap = new LinkedHashMap<>(); // Use LinkedHashMap to maintain order

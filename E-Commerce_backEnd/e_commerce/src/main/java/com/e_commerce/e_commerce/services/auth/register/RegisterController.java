@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.e_commerce.e_commerce.helper.ResponseHelper;
+import com.e_commerce.e_commerce.models.User;
 
 @RestController
 @RequestMapping("market")
@@ -20,31 +21,31 @@ public class RegisterController {
     RegisterServices registerServices;
 
     @PostMapping("signup")
-    public ResponseEntity<Object> signup(@RequestBody Map<String, String> credentials) {
+    public ResponseEntity<Object> signup(@RequestBody User user) {
 
-        String userName = credentials.get("userName");
-        String firstName = credentials.get("firstName");
-        String lastName = credentials.get("lastName");
-        String email = credentials.get("email");
-        String password = credentials.get("password");
-
-        String signUpResult = registerServices.signUp(firstName, lastName, userName, email, password);
         ResponseHelper responseHelper = new ResponseHelper();
-        if (signUpResult.equals("created successfully")) {
+        Map<String, String> errors = user.Validate();
+        
+        if(errors.isEmpty()) { 
+            String signUpResult = registerServices.signUp(user.getFirstName(), user.getLastName(), user.getUserName(),user.getEmail(), user.getPassword());
+            
+            if (signUpResult.equals("created successfully")) {
 
-            return responseHelper.createSuccessResponse("account created successfully", null);
-        } else if (signUpResult.equals("used Email")) {
-            return responseHelper.createErrorResponse(HttpStatus.BAD_REQUEST, "The Email is Already Used", null);
-
-        } else if (signUpResult.equals("database error")) {
-            return responseHelper.createErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, "Internal Database Error",
-                    null);
+                return responseHelper.createSuccessResponse("account created successfully", null);
+            } else if (signUpResult.equals("used Email")) {
+                return responseHelper.createErrorResponse(HttpStatus.BAD_REQUEST, "The Email is Already Used", null);
+    
+            } else if (signUpResult.equals("database error")) {
+                return responseHelper.createErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, "Internal Database Error",
+                        null);
+            }
+            else {
+                return responseHelper.createErrorResponse(HttpStatus.BAD_REQUEST, "Password is not valid", null);
+    
+            }    
         }
-
-        else {
-            return responseHelper.createErrorResponse(HttpStatus.BAD_REQUEST, "Password is not valid", null);
-
+        else{
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
         }
-
     }
 }

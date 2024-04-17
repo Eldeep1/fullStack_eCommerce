@@ -20,22 +20,35 @@ public class Cart {
     private int cartId;
     @Embedded
     private OrderItem orderItem;
+    private String productName;
+    private String productImage;
     
     public Cart(){
         orderItem=new OrderItem();
     }
     public Cart(Map<String,Object> data){
         this.orderItem=new OrderItem(data);
+        this.productImage=(String)data.get("productImage");
+        this.productName=(String)data.get("productName");
+    
     }
     public Map<Object, Object> toMap() {
         Map<Object, Object> data = new LinkedHashMap<>();
         data.put("cartId", cartId);
         data.putAll(orderItem.toMap());
+        data.put("productName",productName);
+        data.put("productImage",productImage);
         return data;
     }
 
+    public String getProductName() {
+        return productName;
+    }
     public int getCartId() {
         return cartId;
+    }
+    public String getProductImage() {
+        return productImage;
     }
      public int getUserId() {
         return orderItem.getUserId();

@@ -1,5 +1,7 @@
 package com.e_commerce.e_commerce.services.products;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +20,9 @@ public class ProductsModel {
     }
 
     public List<Products> searchForProduct(String keyword){
+        if (keyword.isEmpty()){
+            return Collections.emptyList();
+        }
         return productRepository.searchForProducts(keyword);
     }
     public Products getProduct(int productId){

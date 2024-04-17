@@ -34,9 +34,11 @@ CREATE TABLE orders (
 );
 drop table IF EXISTS cart;
 CREATE TABLE cart (
-    cart_id SERIAL PRIMARY KEY,
+    cart_id SERIAL PRIMARY KEY,	
     product_id INT REFERENCES products(id),
     user_id INT REFERENCES users(id),
+    product_image Text,
+    product_Name Text,
     price INT,
     quantity INT
 );
@@ -54,5 +56,3 @@ VALUES
 
 INSERT INTO orders (product_id, user_id, order_status, price, quantity)
 VALUES (1, 1, 'on the way', 30, 40);
-
-

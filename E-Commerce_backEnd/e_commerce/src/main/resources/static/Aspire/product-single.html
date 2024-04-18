@@ -212,6 +212,8 @@
 		$("#add-to-cart-button").click(function () {
             var url = "http://localhost:8080/market/cart/add";
 
+			const productName = $("#product-name").text();
+			const productImage = $("#product-image").attr("src");
 
 			const userId = localStorage.getItem("id");
 			const productId = pID;
@@ -227,6 +229,8 @@
 					datatype: "json",
 					contentType: "application/json",
 					data: JSON.stringify({
+						productName: productName,
+						productImage: productImage,
 						userId : parseInt(userId),
 						productId : parseInt(productId),
 						quantity : productQuantity,
@@ -254,7 +258,7 @@
                 datatype: "json",
                 success: function (response) {
                     var products = response.data;
-                    for (i = 0; i < products.length && i <= 4; i++) {
+                    for (i = 0; i < products.length && i <3; i++) {
 						var productHTML = `
 							<div class="col-md-4">
 								<div class="product-item">

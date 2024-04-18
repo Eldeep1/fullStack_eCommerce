@@ -42,15 +42,15 @@ CREATE TABLE cart (
     price INT,
     quantity INT
 );
-insert into user values(1,"DepoGramming","Ali","Eldeep","alieldeep111@gmail.com","123456","asdf342");
-insert into products values("1", "t-shirt", "a stylish t-shirt", "400", "www.http/meow");
-insert into products values(45, "trousers", "a stylish trousers", 200, "www.http/mememeow");
-insert into products values(4,"meow","not meow",500,"helpppp");
-INSERT INTO products (id, product_name, product_description, product_price, product_image) 
+insert into user values(6,"DepoGramming","Ali","Eldeep","alieldeep111@gmail.com","123456","15.jpg");
+insert into products values("5", "t-shirt", "a stylish t-shirt", "400", "16.jpg");
+insert into products values(45, "trousers", "a stylish trousers", 200, "1.jpg");
+insert into products values(4,"meow","not meow",500,"18.jpg");
+INSERT INTO products (id, product_name, product_description, product_price, porduct_image) 
 VALUES 
-(1, 'Product 1', 'Description of Product 1', 50, 'image1.jpg'),
-(2, 'Product 2', 'Description of Product 2', 60, 'image2.jpg'),
-(3, 'Product 3', 'Description of Product 3', 70, 'image3.jpg');
+(1, 'Product 1', 'Description of Product 1', 50, '12.jpg'),
+(2, 'Product 2', 'Description of Product 2', 60, '13.jpg'),
+(3, 'Product 3', 'Description of Product 3', 70, '14.jpg');
 
 
 

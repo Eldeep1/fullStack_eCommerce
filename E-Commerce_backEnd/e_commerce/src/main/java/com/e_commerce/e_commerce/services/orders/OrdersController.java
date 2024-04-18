@@ -1,5 +1,7 @@
 package com.e_commerce.e_commerce.services.orders;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.e_commerce.e_commerce.helper.ResponseHelper;
 import com.e_commerce.e_commerce.models.Orders;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -46,13 +48,23 @@ public class OrdersController {
 
     }
 
+    @JsonIgnoreProperties
     @PostMapping("/Orders/add")
-    public ResponseEntity<Object> addOrder(@RequestBody Map<String, Object> orderAsMap) {
-        Orders order=new Orders(orderAsMap);
-        return ordersModel.addOrder(order)?
-        responseHelper.createSuccessResponse("order Added Successfully", null)
-        :responseHelper.createErrorResponse(HttpStatus.UNAUTHORIZED, "an error happened", null);
+    public ResponseEntity<Object> addOrder(@RequestBody List<Map<String,Object>> data) {
+        List<Orders> dataForTheModel = new ArrayList<>();
+        try {
+            for (Map<String, Object> order : data) {
+                Orders newOrder = new Orders(order); // Assuming you have a constructor in Orders class
+                dataForTheModel.add(newOrder);
+            }
+            ordersModel.addOrder(dataForTheModel);
+            return responseHelper.createSuccessResponse("Orders Added Successfully", null);
+        } catch (Exception e) {
+            return responseHelper.createErrorResponse(HttpStatus.UNAUTHORIZED, "An error occurred", null);
+        }
     }
     
 
-}
+    }
+    
+

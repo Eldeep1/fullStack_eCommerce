@@ -27,9 +27,9 @@ public class OrdersModel {
         return true;
     }
 
-    public Boolean addOrder(Orders order) {
+    public Boolean addOrder(List<Orders> order) {
         try {
-            orderRepository.save(order);
+            orderRepository.saveAll(order);
         } catch (Exception e) {
             return false;
         }

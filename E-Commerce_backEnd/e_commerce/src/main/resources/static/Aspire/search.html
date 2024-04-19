@@ -165,7 +165,8 @@
     </div>
 </section><!-- End Top Header Bar -->
 
-
+<div class="dashboard-wrapper user-dashboard">
+    <div class="table-responsive">
 <form class="text-left clearfix" id="search" action="#" >
 <div class="container"
      style=" max-width: 600px;
@@ -187,7 +188,8 @@
 </div>
 
 </form>
-
+    </div>
+</div>
 
 
 
@@ -258,6 +260,7 @@ function reloadPage() {
                          }
 
                          else{
+                         $("#search").append("<tr><td>PRODUCT ID</td><td>PRODUCT DESCRIPTION</td><td>PRODUCT IMAGE</td><td>PRODUCT NAME</td><td>PRODUCT PRICE</td></tr>" );
 
                          for (i = 0; i < data.data.length; i++) {
 

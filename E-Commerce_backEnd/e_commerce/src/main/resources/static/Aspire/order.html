@@ -34,6 +34,35 @@
   
   <!-- Main Stylesheet -->
   <link rel="stylesheet" href="css/style.css">
+	<style>
+
+
+
+		tr {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+
+
+        }
+
+        td {
+            padding: 40px 100px;
+            background-color: #f2f2f2;
+            border-bottom: 1px solid #ddd;
+
+        }
+
+
+        td:hover {
+            background-color: #e0e0e0;
+        }
+
+
+}
+
+
+	</style>
 
 </head>
 
@@ -46,21 +75,7 @@
 
 
 
-<section class="page-header">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12">
-				<div class="content">
-					<h1 class="page-name">Dashboard</h1>
-					<ol class="breadcrumb">
-						<li><a href="index.html">Home</a></li>
-						<li class="active">my account</li>
-					</ol>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
+
 <section class="user-dashboard page-wrapper">
 	<div class="container">
 		<div class="row">
@@ -68,69 +83,27 @@
 				<ul class="list-inline dashboard-menu text-center">
 					<li><a href="profile-details.html">Profile Details</a></li>
 					<li><a class="active" href="order.html">Orders</a></li>
-					<li><a href="Add-product.html">Add Product</a></li>
+
 				</ul>
 				<div class="dashboard-wrapper user-dashboard">
 					<div class="table-responsive">
-						<table class="table">
-							<thead>
-								<tr>
-									<th>Order ID</th>
-									<th>Date</th>
-									<th>Items</th>
-									<th>Total Price</th>
-									<th>Status</th>
-									<th></th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>#451231</td>
-									<td>Mar 25, 2016</td>
-									<td>2</td>
-									<td>$99.00</td>
-									<td><span class="label label-primary">Processing</span></td>
-									<td><a href="order.html" class="btn btn-default">View</a></td>
-								</tr>
-								<tr>
-									<td>#451231</td>
-									<td>Mar 25, 2016</td>
-									<td>3</td>
-									<td>$150.00</td>
-									<td><span class="label label-success">Completed</span></td>
-									<td><a href="order.html" class="btn btn-default">View</a></td>
-								</tr>
-								<tr>
-									<td>#451231</td>
-									<td>Mar 25, 2016</td>
-									<td>3</td>
-									<td>$150.00</td>
-									<td><span class="label label-danger">Canceled</span></td>
-									<td><a href="order.html" class="btn btn-default">View</a></td>
-								</tr>
-								<tr>
-									<td>#451231</td>
-									<td>Mar 25, 2016</td>
-									<td>2</td>
-									<td>$99.00</td>
-									<td><span class="label label-info">On Hold</span></td>
-									<td><a href="order.html" class="btn btn-default">View</a></td>
-								</tr>
-								<tr>
-									<td>#451231</td>
-									<td>Mar 25, 2016</td>
-									<td>3</td>
-									<td>$150.00</td>
-									<td><span class="label label-warning">Pending</span></td>
-									<td><a href="order.html" class="btn btn-default">View</a></td>
-								</tr>
-							</tbody>
-						</table>
+						<form class="text-left clearfix" id="orders" action="#" >
+							<h1>View Orders</h1>
+							<button  style=" padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;"   type="submit" form="orders" id="searchButton" >VIEW</button>
+							<div id="results" style=" margin-top: 20px;
+    text-align: left;"></div>
+						</form>
+						<h2 style='text-align: center; margin :40; ' id="myParagraph"></h2>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+
 </section>
 <footer class="footer section text-center">
 	<div class="container">
@@ -172,7 +145,7 @@
 						<a href="contact.html">PRIVACY POLICY</a>
 					</li>
 				</ul>
-				<p class="copyright-text">Copyright &copy;2021, Designed &amp; Developed by <a href="https://themefisher.com/">Themefisher</a></p>
+
 			</div>
 		</div>
 	</div>
@@ -187,6 +160,88 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 			$(".top-header").load("header-bar.html");
 			$("#main-menu").load("main-menu.html");
 		});
+
+
+
+
+		 $("#orders").submit(function (event) {
+                 event.preventDefault(); //to prevent the default behaviour of submit button (test it to make sure)
+
+
+
+                 var url =" http://localhost:8090/market/Orders"
+                 $.ajax({
+                     url: url,
+                     type: "POST",
+                       datatype: "json",
+             contentType: "application/json",
+                     data:
+
+
+
+              JSON.stringify({
+                 userId: localStorage.getItem("id"),
+             }),
+
+                     success: function (data) {
+
+                         console.log(data)
+
+
+if(data.data.length==0){
+
+
+
+                        var paragraphElement = document.getElementById("myParagraph");
+                        paragraphElement.innerText = "THERE IS NO ORDERS TO VIEW !";
+
+
+
+
+                         }
+
+
+                          $("#orders").append("<tr><td>ORDER ID</td><td>ORDER STATUS</td><td>DATE</td><td>QUANTITY</td><td>PRODUCT ID</td><td>USER ID</td><td>PRISE</td></tr>" );
+                         for (i = 0; i < data.data.length; i++) {
+
+
+
+
+
+                               $("#orders").append("<tr><td><a href='product-single.html?pID="+data.data[i].productId+ "'target='_balnk'>"+ data.data[i].orderI +"</a></td><td>"
+                                                             +data.data[i].orderStatus+"</td><td>"
+                                                             +data.data[i].date+"</td><td>"
+                                                             +data.data[i].quantity+"</td><td>"
+                                                             +data.data[i].productId+"</td><td>"
+                                                             +data.data[i].userId+"</td><td>"
+                                                             +data.data[i].price+"</td></tr>"
+
+
+
+
+
+
+
+                                          );
+
+
+                     }
+
+
+
+
+
+                     },
+                     error: function () {
+
+                         console.log("error")
+                     }
+                 })
+             })
+
+
+
+
 	</script>
     <!-- 
     Essential Scripts

@@ -208,11 +208,11 @@ if(data.data.length==0){
 
 
 
-                               $("#orders").append("<tr><td><a href='product-single.html?pID="+data.data[i].productId+ "'target='_balnk'>"+ data.data[i].orderI +"</a></td><td>"
+                              $("#orders").append("<tr><td>"+ data.data[i].orderI +"</td><td>"
                                                              +data.data[i].orderStatus+"</td><td>"
                                                              +data.data[i].date+"</td><td>"
-                                                             +data.data[i].quantity+"</td><td>"
-                                                             +data.data[i].productId+"</td><td>"
+                                                             +data.data[i].quantity+"</td><td><a href='product-single.html?pID="+data.data[i].productId+ "'target='_balnk'>"
+                                                             +data.data[i].productId+"</a></td><td>"
                                                              +data.data[i].userId+"</td><td>"
                                                              +data.data[i].price+"</td></tr>"
 
@@ -223,6 +223,7 @@ if(data.data.length==0){
 
 
                                           );
+
 
 
                      }

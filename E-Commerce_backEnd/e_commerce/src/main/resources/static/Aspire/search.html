@@ -53,6 +53,13 @@
                 td:hover {
                     background-color: #e0e0e0;
                 }
+
+        #product-image1{
+  width: 200px; /* تحديد العرض بـ 200 بيكسل */
+  height: auto; /* تحديد الارتفاع بشكل تلقائي للحفاظ على تناسب الصورة */
+}
+
+
     </style>
 
 </head>
@@ -199,6 +206,16 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
     var clickCount = 0;
 
 function reloadPage() {
@@ -208,13 +225,16 @@ function reloadPage() {
         location.reload(true);
 
 
-    } else {
-         $("#search").submit(function () {
-            //$('#search').empty();
-                 
-                 productName = document.getElementById('searchInput').value
 
-                 var url = "http://localhost:8080/market/products/search?q="+productName
+
+    } else {
+
+         $("#search").submit(function (event) {
+                 event.preventDefault(); //to prevent the default behaviour of submit button (test it to make sure)
+
+                  productName = document.getElementById('searchInput').value
+
+                 var url = "http://localhost:8090/market/products/search?q="+productName
                  $.ajax({
                      url: url,
                      type: "GET",
@@ -246,9 +266,8 @@ function reloadPage() {
 
 
                                $("#search").append("<tr><td>"+ data.data[i].id +"</td><td>"
-                                                             +data.data[i].productDescription+"</td><td>"
-                                                             +data.data[i].productImage+"</td><td>"
-                                                             +data.data[i].productName+"</td><td>"
+                                                             +data.data[i].productDescription+"</td><td><img src='images/shop/products/"+data.data[i].productImage+"' alt='' id='product-image1'></td><td><a href='product-single.html?pID="+data.data[i].id+ "'target='_balnk'>"
+                                                             +data.data[i].productName+"</a></td><td>"
                                                              +data.data[i].productPrice+"</td></tr>"
 
 

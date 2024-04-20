@@ -12,8 +12,7 @@ public class AuthQuestions {
     private int id;
     private String question;
 
-    public AuthQuestions(){
-    }
+
     public Map<Object, Object> authQuestionsToMap(){
         Map<Object, Object> data = new LinkedHashMap<>();
 

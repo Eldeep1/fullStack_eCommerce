@@ -10,7 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
 	"com.e_commerce.e_commerce.services.products",
 	"com.e_commerce.e_commerce.services.Orders",
 	"com.e_commerce.e_commerce.services.cart",
-	"com.e_commerce.e_commerce.services.auth.multi_factor_auth.auth_questions"
+	"com.e_commerce.e_commerce.services.auth.multi_factor_auth"
 })
 
 @SpringBootApplication

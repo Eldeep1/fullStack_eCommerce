@@ -1,14 +1,24 @@
 CREATE DATABASE IF NOT EXISTS market;
 use market;
+
+
+drop table IF EXISTS auth_questions;
+CREATE TABLE auth_questions(
+id int PRIMARY KEY,
+question text
+);
+
 drop table IF EXISTS user;
 CREATE TABLE user (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_name VARCHAR(50) NOT NULL,
     first_name text NOT NULL, 
     last_name text NOT NULL,
-	email varchar(400) ,
+	email VARCHAR(500) ,
     password VARCHAR(255) NOT NULL, -- Assuming hashed passwords stored
     token VARCHAR(255) NOT NULL,
+    auth_question_answer text NOT NULL,
+    auth_questino_id int NOT NULL references auth_questions(id) ,
     UNIQUE(email),
     UNIQUE (token)
 );
@@ -42,7 +52,20 @@ CREATE TABLE cart (
     price INT,
     quantity INT
 );
-insert into user values(1,"DepoGramming","Ali","Eldeep","alieldeep111@gmail.com","123456","asdf342");
+
+
+
+-- DROP TABLE IF EXISTS OTP;
+-- CREATE TABLE OTP(
+--     id SERIAL AUTO_INCREMENT PRIMARY KEY,
+-- 	user_email Text REFERENCES users(email),
+--     date text,
+--     otp int(6),
+-- 	CONSTRAINT unique_user_id UNIQUE (user_email)
+-- );
+
+
+insert into user values(1,"DepoGramming","Ali","Eldeep","alieldeep111@gmail.com","123456","asdf342","DON'T KNOW","1");
 insert into products values("1", "t-shirt", "a stylish t-shirt", "400", "www.http/meow");
 insert into products values(45, "trousers", "a stylish trousers", 200, "www.http/mememeow");
 insert into products values(4,"meow","not meow",500,"helpppp");
@@ -56,3 +79,18 @@ VALUES
 
 INSERT INTO orders (product_id, user_id, order_status, price, quantity)
 VALUES (1, 1, 'on the way', 30, 40);
+
+
+INSERT INTO auth_questions (id, question) VALUES
+(1, 'What is your mother''s  name?'),
+(2, 'What city were you born in?'),
+(3, 'What is the name of your first pet?'),
+(4, 'What is your favorite food?'),
+(5, 'In what year did you graduate from high school?'),
+(6, 'What is the name of your favorite teacher?'),
+(7, 'What is the model of your first car?'),
+(8, 'What is your favorite book?'),
+(9, 'What is your favorite movie?'),
+(10, 'What is your favorite color?');
+
+

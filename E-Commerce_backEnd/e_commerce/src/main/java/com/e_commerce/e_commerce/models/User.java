@@ -29,14 +29,20 @@ public class User {
     private String token;
     @Column(nullable = false)
     private String password;
+    @Column(nullable = false)
+    private String authQuestionAnswer;
+    @Column(nullable = false)
+    private String authQuestionId;
 
-    public User( String token,String firstName, String lastName,String userName,String email, String password) {
+    public User( String token,String firstName, String lastName,String userName,String email, String password,String authQuestionAnswer,String questionId) {
         this.firstName = firstName;
         this.token = token;
         this.lastName=lastName;
         this.email=email;
         this.userName=userName;
         this.password=password;
+        this.authQuestionAnswer=authQuestionAnswer;
+        this.authQuestionId=questionId;
     }
     
     public User(){}
@@ -87,5 +93,13 @@ public Map<Object, Object> userToMap() {
 
     public Integer getId() {
         return this.id;
+    }
+    
+    public String getAuthQuestionAnswer() {
+        return this.authQuestionAnswer;
+    }
+    
+    public String getQuestionId() {
+        return this.authQuestionId;
     }
 }

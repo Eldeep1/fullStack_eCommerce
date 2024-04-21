@@ -11,10 +11,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.e_commerce.e_commerce.helper.ResponseHelper;
+import com.e_commerce.e_commerce.repositories.AuthQuestionsRepo;
+
+import org.springframework.web.bind.annotation.GetMapping;
+
 
 @RestController
 @RequestMapping("market")
 public class RegisterController {
+    ResponseHelper responseHelper = new ResponseHelper();
     
     @Autowired
     RegisterServices registerServices;
@@ -27,9 +32,9 @@ public class RegisterController {
         String lastName = credentials.get("lastName");
         String email = credentials.get("email");
         String password = credentials.get("password");
-
-        String signUpResult = registerServices.signUp(firstName, lastName, userName, email, password);
-        ResponseHelper responseHelper = new ResponseHelper();
+        String questionAnswer=credentials.get("questinoAnswer");
+        String questionId=credentials.get("questinoId");
+        String signUpResult = registerServices.signUp(firstName, lastName, userName, email, password,questionId,questionAnswer);
         if (signUpResult.equals("created successfully")) {
 
             return responseHelper.createSuccessResponse("account created successfully", null);

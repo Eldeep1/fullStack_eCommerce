@@ -20,4 +20,6 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     @Query("UPDATE User u SET u.password = ?2 WHERE u.email = ?1")
     public Boolean resetPassword(String email, String newPassword);
     
+    @Query("SELECT u FROM User u WHERE u.authQuestionId = ?1 AND u.authQuestionAnswer = ?2 AND u.email = ?3")
+    public Boolean verifyUser(Integer questionId, String authQuestionAnswer, String email);
 }

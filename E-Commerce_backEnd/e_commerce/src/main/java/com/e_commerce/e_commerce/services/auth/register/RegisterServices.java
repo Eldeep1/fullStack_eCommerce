@@ -7,8 +7,8 @@ public class RegisterServices {
     @Autowired
     RegisterModel registerModel;
 
-    public  String signUp(String firstName, String lastName,String userName,String email, String password){
+    public  String signUp(String firstName, String lastName,String userName,String email, String password,String questionId,String questinoAnswer){
         
-        return registerModel.createUser(firstName,lastName,userName,email,password);
+        return registerModel.createUser(firstName,lastName,userName,email,password,questionId,questinoAnswer);
     }
 }

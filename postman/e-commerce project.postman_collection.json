@@ -130,6 +130,71 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "password services",
+					"item": [
+						{
+							"name": "checking for email",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\":\"alieldeep111@gmail.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/market/auth/checkMail",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"market",
+										"auth",
+										"checkMail"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "resetting password-last step",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"question_id\":\"1\",\r\n    \"email\":\"alieldeep111@gmail.com\",\r\n    \"answer\":\"DON'T KNOW\",\r\n    \"newPassword\":\"wwwww\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/market/auth/resetPassword",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"market",
+										"auth",
+										"resetPassword"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		},

@@ -53,7 +53,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userName\":\"ali\",\r\n    \"firstName\":\"ali\",\r\n    \"lastName\":\"eldeep\",\r\n    \"password\":\"123456\",\r\n    \"email\":\"alieldeep111@gmail.com\"\r\n}",
+									"raw": "{\r\n    \"userName\":\"ali\",\r\n    \"firstName\":\"ali\",\r\n    \"lastName\":\"eldeep\",\r\n    \"password\":\"123456\",\r\n    \"email\":\"alieldeep111@gmail.com\",\r\n    \"questinoId\":\"1\",\r\n    \"questinoAnswer\":\"don't know\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -82,7 +82,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userName\":\"ali\",\r\n    \"firstName\":\"ali\",\r\n    \"lastName\":\"eldeep\",\r\n    \"password\":\"123456\",\r\n    \"email\":\"meow@gmail.com\"\r\n}",
+									"raw": "{\r\n    \"userName\":\"ali\",\r\n    \"firstName\":\"ali\",\r\n    \"lastName\":\"eldeep\",\r\n    \"password\":\"123456\",\r\n    \"email\":\"meow@gmail.com\",\r\n    \"questinoId\":\"1\",\r\n    \"questinoAnswer\":\"don't know\"\r\n    \r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -99,6 +99,31 @@
 									"path": [
 										"market",
 										"signup"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "multifactor authentication",
+					"item": [
+						{
+							"name": "get questions",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/market/AuthQuestinos",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"market",
+										"AuthQuestinos"
 									]
 								}
 							},

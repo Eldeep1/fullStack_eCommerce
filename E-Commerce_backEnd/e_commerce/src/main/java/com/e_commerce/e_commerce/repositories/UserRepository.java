@@ -2,6 +2,8 @@ package com.e_commerce.e_commerce.repositories;
 
 import com.e_commerce.e_commerce.models.User;
 
+import jakarta.transaction.Transactional;
+
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -16,10 +18,12 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     @Query("SELECT u FROM User u WHERE u.email = ?1")
     public User findByEmail(String email);
 
+    @Transactional
     @Modifying
-    @Query("UPDATE User u SET u.password = ?2 WHERE u.email = ?1")
-    public Boolean resetPassword(String email, String newPassword);
+    @Query("UPDATE User u SET u.password = ?1 WHERE u.email = ?2")
+    public int resetPassword(String newPassword, String email);
+
     
     @Query("SELECT u FROM User u WHERE u.authQuestionId = ?1 AND u.authQuestionAnswer = ?2 AND u.email = ?3")
-    public Boolean verifyUser(Integer questionId, String authQuestionAnswer, String email);
+    public User verifyUser(String questionId, String authQuestionAnswer, String email);
 }

@@ -93,7 +93,7 @@
     background-color: #007bff;
     color: #fff;
     border: none;
-    cursor: pointer;"   type="submit" form="orders" id="searchButton" >VIEW</button>
+    cursor: pointer;"   type="submit" form="orders" id="searchButton" onclick="reloadPage()" >VIEW</button>
 							<div id="results" style=" margin-top: 20px;
     text-align: left;"></div>
 						</form>
@@ -162,7 +162,18 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 		});
 
 
+var clickCount = 0;
 
+function reloadPage() {
+    clickCount++;
+
+    if (clickCount === 2) {
+        location.reload(true);
+
+
+
+
+    } else {
 
 		 $("#orders").submit(function (event) {
                  event.preventDefault(); //to prevent the default behaviour of submit button (test it to make sure)
@@ -240,7 +251,8 @@ if(data.data.length==0){
                  })
              })
 
-
+			 }
+}
 
 
 	</script>

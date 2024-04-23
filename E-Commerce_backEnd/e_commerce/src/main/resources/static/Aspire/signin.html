@@ -48,27 +48,29 @@
             <img src="images/logo.png" alt="">
           </a>
           <h2 class="text-center">Create Your Account</h2>
-          <form class="text-left clearfix" id="signin" action="index.html">
+          <form class="text-left clearfix" id="signin"  onsubmit="return validateForm(event)">
             <div class="form-group">
-              <input type="text" class="form-control" id="first_name" placeholder="First Name">
+              <input type="text" class="form-control" id="first_name" placeholder="First Name" required>
             </div>
             <div class="form-group">
-              <input type="text" class="form-control" id="last_name" placeholder="Last Name">
+              <input type="text" class="form-control" id="last_name" placeholder="Last Name" required>
             </div>
             <div class="form-group">
-              <input type="text" class="form-control" id="username" placeholder="Username">
+              <input type="text" class="form-control" id="username" placeholder="Username" required>
             </div>
             <div class="form-group">
-              <input type="email" class="form-control" id="email" placeholder="Email">
+              <input type="email" class="form-control" id="email" placeholder="Email" required>
             </div>
             <div class="form-group">
-              <input type="password" class="form-control" id="password" placeholder="Password">
+              <input type="password" class="form-control" id="password" placeholder="Password" required>
             </div>
             <div class="text-center">
               <button type="submit" class="btn btn-main text-center">Sign Up</button>
             </div>
           </form>
+
           <p class="mt-20">Already hava an account ?<a href="login.html"> Login</a></p>
+          <p id="error-message" class="error-message"></p>
 
         </div>
       </div>
@@ -80,33 +82,79 @@
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
-  $("#signin").submit(function (event) {
-        event.preventDefault(); //to prevent the default behaviour of submit button
-        var url = "http://localhost:8080/market/signup"
-        $.ajax({
-            url: url,
-            type: "POST",
-            datatype: "json",
-            contentType: "application/json",
-            data: JSON.stringify({
-                userName: document.getElementById('username').value,
-                firstName: document.getElementById('first_name').value,
-                lastName: document.getElementById('last_name').value,
-                password: document.getElementById('password').value,
-                email: document.getElementById('email').value,
+  function validateForm(event) {
+     event.preventDefault();
+      var username = document.getElementById('username').value;
+     var firstName = document.getElementById('first_name').value;
+     var lastName = document.getElementById('last_name').value;
+     var password = document.getElementById('password').value;
+     var email = document.getElementById('email').value;
 
 
-            }),
-            success: function (data) {
-                console.log(data)
+
+     var errorMessage = document.getElementById('error-message');
+
+     if (firstName === '' || lastName === '' || email === '' || password === '' || username === '') {
+         errorMessage.innerText = 'Please fill in all fields.';
+         return false;
+     }
 
 
-            },
-            error: function () {
-                console.log("error")
-            }
-        })
-    })
+     window.location.href = 'index.html';
+ }
+
+
+
+
+
+
+
+
+   $("#signin").submit(function (event) {
+         event.preventDefault(); //to prevent the default behaviour of submit button
+         var url = "http://localhost:8090/market/signup"
+
+
+         $.ajax({
+             url: url,
+             type: "POST",
+             datatype: "json",
+             contentType: "application/json",
+             data:
+
+
+
+              JSON.stringify({
+                 userName: document.getElementById('username').value,
+                 firstName: document.getElementById('first_name').value,
+                 lastName: document.getElementById('last_name').value,
+                 password: document.getElementById('password').value,
+                 email: document.getElementById('email').value,
+
+
+             }),
+             success:
+
+
+
+
+             function (data) {
+                 console.log(data)
+
+
+             },
+             error: function () {
+                 console.log("error")
+             }
+         })
+
+
+     })
+
+
+
+
+
 
 </script>
 

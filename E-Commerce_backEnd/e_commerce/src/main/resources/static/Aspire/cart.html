@@ -81,7 +81,7 @@
                   </thead>
                   <tbody id="cart"></tbody>
                 </table>
-                <a href="checkout.html" class="btn btn-main pull-right">Checkout</a>
+                <a href="#" class="btn btn-main pull-right" id="confirm-order">Confirm Order</a>
               </form>
             </div>
           </div>
@@ -143,6 +143,8 @@
 	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 	<script>
+	var products;	
+
 	$(document).ready(function(){
 		var cartId;
 		function viewCart() {
@@ -158,7 +160,7 @@
                     userId: parseInt(localStorage.getItem("id"))
                 }),
                 success: function (response) {
-                    var products = response.data;
+                    products = response.data;
 					if(products.length >= 1){
 						for (i = 0; i < products.length; i++) {
 						var productHTML = `
@@ -216,6 +218,47 @@
 			})
 		});
 	});
+
+
+
+
+
+
+	$("#confirm-order").click(function () {
+            var url = "http://localhost:8080/market/Orders/add";
+
+			userId = parseInt(localStorage.getItem("id"));
+			var orderList = [];
+			for (i = 0; i < products.length; i++) {
+				// Create a new order object
+				var newOrder = {
+					orderStatus: "new",
+					checkOutMethod: "cash on delievery",
+					userId: userId,
+					productId: products[i].productId,
+					quantity: products[i].quantity,
+					price: products[i].price
+				};
+
+				// Push the new order object into the orders array
+				orderList.push(newOrder);
+			}
+            $.ajax({
+                url: url,
+                type: "POST",
+                datatype: "json",
+                contentType: "application/json",
+                data: JSON.stringify(orderList),
+                success: function () {
+                    window.location.href = "confirmation.html";
+                    
+                },
+                error: function (one, two, error) {
+					console.log(error);
+					console.log(orderList);
+                }
+            })
+        });
 	</script>
 
 		

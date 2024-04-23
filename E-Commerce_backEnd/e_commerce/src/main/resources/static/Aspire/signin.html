@@ -64,6 +64,15 @@
             <div class="form-group">
               <input type="password" class="form-control" id="password" placeholder="Password" required>
             </div>
+            <div class="product-size">
+              <span>Choose the secret question:</span>
+              <select class="form-control" id="questionContainer">
+              </select>
+            </div><br>
+            <div class="form-group">
+              <input type="text" class="form-control" id="answer" placeholder="ANSWER THE SECRET QUESTION" required>
+            </div>
+
             <div class="text-center">
               <button type="submit" class="btn btn-main text-center">Sign Up</button>
             </div>
@@ -82,6 +91,37 @@
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
+
+          function getQuestions() {
+            $('#questionContainer').empty();
+            
+
+
+            var url = "http://localhost:8080/market/AuthQuestinos"
+            $.ajax({
+                url: url,
+                type: "GET",
+                datatype: "json",
+                success: function (response) {
+                    var questions = response.data;
+                    for (i = 0; i < questions.length; i++) {
+						          var questionHTML = `
+                          <option data-id="${questions[i].id}">${questions[i].question}</option>
+							          `;
+                        $("#questionContainer").append(questionHTML);
+					}
+                },
+                error: function () {
+                    console.log('error happened');
+                }
+            })
+
+
+        }
+        getQuestions();
+
+
+
   function validateForm(event) {
      event.preventDefault();
       var username = document.getElementById('username').value;
@@ -112,8 +152,10 @@
 
    $("#signin").submit(function (event) {
          event.preventDefault(); //to prevent the default behaviour of submit button
-         var url = "http://localhost:8090/market/signup"
+         var url = "http://localhost:8080/market/signup"
 
+         var selectedQuestion = $("#questionContainer").find("option:selected");
+        var questionId = selectedQuestion.data("id");
 
          $.ajax({
              url: url,
@@ -130,7 +172,8 @@
                  lastName: document.getElementById('last_name').value,
                  password: document.getElementById('password').value,
                  email: document.getElementById('email').value,
-
+                 questinoId: questionId,
+                 questinoAnswer: document.getElementById('answer').value
 
              }),
              success:

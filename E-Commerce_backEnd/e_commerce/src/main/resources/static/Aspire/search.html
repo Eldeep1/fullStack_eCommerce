@@ -236,7 +236,7 @@ function reloadPage() {
 
                   productName = document.getElementById('searchInput').value
 
-                 var url = "http://localhost:8090/market/products/search?q="+productName
+                 var url = "http://localhost:8080/market/products/search?q="+productName
                  $.ajax({
                      url: url,
                      type: "GET",

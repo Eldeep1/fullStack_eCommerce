@@ -59,7 +59,7 @@
         }
 
 
-}
+
 
 
 	</style>
@@ -169,7 +169,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 
 
-                 var url =" http://localhost:8090/market/Orders"
+                 var url =" http://localhost:8080/market/Orders"
                  $.ajax({
                      url: url,
                      type: "POST",
@@ -208,7 +208,7 @@ if(data.data.length==0){
 
 
 
-                              $("#orders").append("<tr><td>"+ data.data[i].orderI +"</td><td>"
+                              $("#orders").append("<tr><td>"+ data.data[i].orderId +"</td><td>"
                                                              +data.data[i].orderStatus+"</td><td>"
                                                              +data.data[i].date+"</td><td>"
                                                              +data.data[i].quantity+"</td><td><a href='product-single.html?pID="+data.data[i].productId+ "'target='_balnk'>"

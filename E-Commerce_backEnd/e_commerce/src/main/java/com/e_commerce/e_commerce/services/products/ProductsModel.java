@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.e_commerce.e_commerce.models.Products;
-import com.e_commerce.e_commerce.repositories.ProductRepository;
+import com.e_commerce.e_commerce.repository.ProductRepository;
 @Component
 public class ProductsModel {
     @Autowired

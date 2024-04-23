@@ -38,10 +38,11 @@ public class SecurityConfig {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
-                    req->req.requestMatchers("/market/login/**", "/market/signup/**")
+                    req->req
+                    .requestMatchers("market/Orders/updateStatus")
+                    .hasAuthority("ADMIN").
+                    requestMatchers("/market/login/**", "/market/signup/**","/market/products/**","/market/Orders/**")
                     .permitAll()
-                    .requestMatchers("/admin_only/**")
-                    .hasAuthority("ADMIN")
                     .anyRequest()
                     .authenticated()
                 ).userDetailsService(userDetailsImp)
@@ -49,6 +50,7 @@ public class SecurityConfig {
                     .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
                 .sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .requiresChannel(meow->meow.anyRequest().requiresSecure())
                 .build();  
     }
 
@@ -57,8 +59,8 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
-        return configuration.getAuthenticationManager();
-    }
+
+
+    
+
 }

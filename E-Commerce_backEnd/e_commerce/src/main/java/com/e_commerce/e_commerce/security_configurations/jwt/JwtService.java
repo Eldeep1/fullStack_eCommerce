@@ -8,6 +8,7 @@ import javax.crypto.SecretKey;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import com.e_commerce.e_commerce.models.User;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -49,13 +50,13 @@ public class JwtService {
         return resolver.apply(claims);
     }
 
-    public String extractUsername(String token) {
+    public String extractEmail(String token) {
         return extractClaim(token, Claims::getSubject);
     }
 //////need fucking modifiction
     public boolean isValid(String token, UserDetails user) {
-        String username = extractUsername(token);
-        return (username.equals(user.getUsername())) && !isTokenExpired(token);
+        String email = extractEmail(token);
+        return (email.equals(((User) user).getEmail())) && !isTokenExpired(token);
     }
 
     private boolean isTokenExpired(String token) {

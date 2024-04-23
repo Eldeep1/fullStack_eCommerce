@@ -13,15 +13,7 @@ import org.springframework.stereotype.Service;
 public class LoginServices {
     @Autowired
     private  UserRepository userRepository;
-    @Autowired
-    private  PasswordEncoder passwordEncoder ;
-    private  JwtService jwtService = new JwtService();
-    @Autowired
-    private  AuthenticationManager authenticationManager;
 
-    
-
-  
     public User login(String email, String password){
         return userRepository.findByEmailAndPassword(email, password);
     }

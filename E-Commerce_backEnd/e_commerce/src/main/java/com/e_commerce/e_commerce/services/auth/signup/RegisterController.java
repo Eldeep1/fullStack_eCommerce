@@ -34,6 +34,7 @@ public class RegisterController {
         hashedPassword=securityHelper.hashString(hashedPassword);
 
         credentials.put("password", hashedPassword);
+        credentials.put("role", "USER");
         User user = new User(credentials);
 
         String signUpResult = registerServices.signUp(user);

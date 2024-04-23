@@ -147,4 +147,9 @@ public Map<Object, Object> userToMap() {
         return this.authQuestionId;
     }
 
+    public UserDetails orElseThrow(Object object) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'orElseThrow'");
+    }
+
 }

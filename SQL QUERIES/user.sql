@@ -1,7 +1,6 @@
 CREATE DATABASE IF NOT EXISTS market;
 use market;
 
-
 drop table IF EXISTS auth_questions;
 CREATE TABLE auth_questions(
 id int PRIMARY KEY,
@@ -18,9 +17,8 @@ CREATE TABLE user (
     password VARCHAR(255) NOT NULL, -- Assuming hashed passwords stored
     token VARCHAR(255) NOT NULL,
     auth_question_answer text NOT NULL,
-    auth_questino_id int NOT NULL references auth_questions(id) ,
-    UNIQUE(email),
-    UNIQUE (token)
+    auth_question_id int NOT NULL references auth_questions(id) ,
+    UNIQUE(email)
 );
 drop table IF EXISTS products;
 
@@ -79,7 +77,6 @@ VALUES
 
 INSERT INTO orders (product_id, user_id, order_status, price, quantity)
 VALUES (1, 1, 'on the way', 30, 40);
-
 
 INSERT INTO auth_questions (id, question) VALUES
 (1, 'What is your mother''s  name?'),

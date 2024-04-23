@@ -21,7 +21,7 @@ public class Orders {
     @Embedded
     private OrderItem orderItem;
     private String orderStatus;
-    private String checkOutMethod;
+    // private String checkOutMethod;
     private Date orderDate;
 
     public Orders(){
@@ -31,7 +31,7 @@ public class Orders {
     public Orders(Map<String, Object> data) {
         this.orderStatus = (String) data.get("orderStatus");
         this.orderItem=new OrderItem(data);
-        this.checkOutMethod= (String) data.get("checkOutMethod");
+        // this.checkOutMethod= (String) data.get("checkOutMethod");
         this.orderDate = new Date();
 
     }
@@ -40,7 +40,7 @@ public class Orders {
         data.put("orderId", orderId);
         data.put("orderStatus", orderStatus);
         data.putAll(orderItem.toMap());
-        data.put("checkOutMethod",checkOutMethod);
+        // data.put("checkOutMethod",checkOutMethod);
         data.put("orderDate", orderDate);
 
         return data;

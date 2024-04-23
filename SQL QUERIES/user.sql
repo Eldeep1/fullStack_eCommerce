@@ -37,8 +37,7 @@ CREATE TABLE orders (
     order_status VARCHAR(20),
     order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     price int,
-    quantity int,
-    check_out_method varchar(150)
+    quantity int
 );
 drop table IF EXISTS cart;
 CREATE TABLE cart (

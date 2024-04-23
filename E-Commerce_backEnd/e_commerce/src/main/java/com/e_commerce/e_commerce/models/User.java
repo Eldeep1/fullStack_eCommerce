@@ -62,7 +62,7 @@ public class User implements UserDetails{
         this.password=(String) data.get("password");
         this.authQuestionAnswer=(String) data.get("questinoAnswer");
         this.authQuestionId=(String) data.get("questinoId");
-        this.role=(Role) data.get("role");
+        this.role = Role.valueOf((String) data.get("role"));
     }
 
     

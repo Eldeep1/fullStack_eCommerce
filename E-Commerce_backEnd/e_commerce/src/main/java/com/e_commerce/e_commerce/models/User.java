@@ -38,12 +38,26 @@ public class User implements UserDetails{
 
     @Column(nullable = false)
     private String password;
+    @Column(nullable = false)
+    private String authQuestionAnswer;
+    @Column(nullable = false)
+    private String authQuestionId;
 
     @Enumerated(value = EnumType.STRING)
     private Role role;
 
     public Integer getId() {
         return id;
+
+    public User( String token,String firstName, String lastName,String userName,String email, String password,String authQuestionAnswer,String questionId) {
+        this.firstName = firstName;
+        this.token = token;
+        this.lastName=lastName;
+        this.email=email;
+        this.userName=userName;
+        this.password=password;
+        this.authQuestionAnswer=authQuestionAnswer;
+        this.authQuestionId=questionId;
     }
 
     public void setId(Integer id) {
@@ -124,4 +138,12 @@ public class User implements UserDetails{
     }
 
     
+    
+    public String getAuthQuestionAnswer() {
+        return this.authQuestionAnswer;
+    }
+    
+    public String getQuestionId() {
+        return this.authQuestionId;
+    }
 }

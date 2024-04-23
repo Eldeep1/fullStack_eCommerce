@@ -53,7 +53,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userName\":\"ali\",\r\n    \"firstName\":\"ali\",\r\n    \"lastName\":\"eldeep\",\r\n    \"password\":\"123456\",\r\n    \"email\":\"alieldeep111@gmail.com\"\r\n}",
+									"raw": "{\r\n    \"userName\":\"ali\",\r\n    \"firstName\":\"ali\",\r\n    \"lastName\":\"eldeep\",\r\n    \"password\":\"123456\",\r\n    \"email\":\"alieldeep111@gmail.com\",\r\n    \"questinoId\":\"1\",\r\n    \"questinoAnswer\":\"don't know\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -82,7 +82,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userName\":\"ali\",\r\n    \"firstName\":\"ali\",\r\n    \"lastName\":\"eldeep\",\r\n    \"password\":\"123456\",\r\n    \"email\":\"meow@gmail.com\"\r\n}",
+									"raw": "{\r\n    \"userName\":\"ali\",\r\n    \"firstName\":\"ali\",\r\n    \"lastName\":\"eldeep\",\r\n    \"password\":\"123456\",\r\n    \"email\":\"meow@gmail.com\",\r\n    \"questinoId\":\"1\",\r\n    \"questinoAnswer\":\"don't know\"\r\n    \r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -105,6 +105,96 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "multifactor authentication",
+					"item": [
+						{
+							"name": "get questions",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/market/AuthQuestinos",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"market",
+										"AuthQuestinos"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "password services",
+					"item": [
+						{
+							"name": "checking for email",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\":\"alieldeep111@gmail.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/market/auth/checkMail",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"market",
+										"auth",
+										"checkMail"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "resetting password-last step",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"question_id\":\"1\",\r\n    \"email\":\"alieldeep111@gmail.com\",\r\n    \"answer\":\"DON'T KNOW\",\r\n    \"newPassword\":\"wwwww\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/market/auth/resetPassword",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"market",
+										"auth",
+										"resetPassword"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		},
@@ -118,7 +208,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "[\r\n    {\r\n    \"orderStatus\":\"new\",\r\n    \"checkOutMethod\":\"cash on delievery\",\r\n    \"userId\":4,\r\n    \"productId\":2,\r\n    \"quantity\":8,\r\n    \"price\":900\r\n},\r\n{\r\n    \"orderStatus\":\"new\",\r\n    \"checkOutMethod\":\"cash on delievery\",\r\n    \"userId\":4,\r\n    \"productId\":2,\r\n    \"quantity\":8,\r\n    \"price\":900\r\n},\r\n{\r\n    \"orderStatus\":\"new\",\r\n    \"checkOutMethod\":\"cash on delievery\",\r\n    \"userId\":4,\r\n    \"productId\":2,\r\n    \"quantity\":8,\r\n    \"price\":900\r\n}\r\n\r\n]",
+							"raw": "[\r\n    {\r\n    \"orderStatus\":\"new\",\r\n    // \"checkOutMethod\":\"cash on delievery\",\r\n    \"userId\":5,\r\n    \"productId\":2,\r\n    \"quantity\":8,\r\n    \"price\":900\r\n},\r\n{\r\n    \"orderStatus\":\"new\",\r\n    // \"checkOutMethod\":\"cash on delievery\",\r\n    \"userId\":5,\r\n    \"productId\":2,\r\n    \"quantity\":8,\r\n    \"price\":900\r\n},\r\n{\r\n    \"orderStatus\":\"new\",\r\n    // \"checkOutMethod\":\"cash on delievery\",\r\n    \"userId\":5,\r\n    \"productId\":2,\r\n    \"quantity\":8,\r\n    \"price\":900\r\n}\r\n\r\n]",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -178,7 +268,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"userId\":1\r\n}",
+							"raw": "{\r\n    \"userId\":5\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

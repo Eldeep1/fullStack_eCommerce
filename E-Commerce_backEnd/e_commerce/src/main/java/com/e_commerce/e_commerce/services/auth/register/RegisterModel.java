@@ -13,14 +13,14 @@ public class RegisterModel {
     UserRepository userRepository;
 
     
-    public  String createUser(String firstName, String lastName,String userName,String email, String password) {
+    public  String createUser(String firstName, String lastName,String userName,String email, String password,String questionId,String questinoAnswer) {
         if(Boolean.TRUE.equals(checkForEmail(email))){
             return "used Email";
         }
         else{
             //there should be a functino that generates the token here ! 
             //but for now, let's assume that the token is fixed...
-            User user= new User("123456ssdfa23", firstName, lastName, userName, email, password);
+            User user= new User("123456ssdfa23", firstName, lastName, userName, email, password,questinoAnswer,questionId);
             try {
                 userRepository.save(user);
                 return "created successfully";

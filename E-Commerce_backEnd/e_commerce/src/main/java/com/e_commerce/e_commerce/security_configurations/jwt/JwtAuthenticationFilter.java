@@ -1,4 +1,4 @@
-package com.e_commerce.e_commerce.filter;
+package com.e_commerce.e_commerce.security_configurations.jwt;
 
 import java.io.IOException;
 
@@ -10,8 +10,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.e_commerce.e_commerce.service.JwtService;
-import com.e_commerce.e_commerce.service.UserDetailsImp;
+import com.e_commerce.e_commerce.models.UserDetailsImp;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

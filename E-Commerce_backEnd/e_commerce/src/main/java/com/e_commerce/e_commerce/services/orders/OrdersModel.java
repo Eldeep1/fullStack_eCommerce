@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.e_commerce.e_commerce.models.Orders;
-import com.e_commerce.e_commerce.repository.OrderRepository;
+import com.e_commerce.e_commerce.repositories.OrderRepository;
 
 @Component
 public class OrdersModel {

@@ -1,4 +1,4 @@
-package com.e_commerce.e_commerce.config;
+package com.e_commerce.e_commerce.security_configurations.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,8 +15,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.e_commerce.e_commerce.filter.JwtAuthenticationFilter;
-import com.e_commerce.e_commerce.service.UserDetailsImp;
+import com.e_commerce.e_commerce.models.UserDetailsImp;
+import com.e_commerce.e_commerce.security_configurations.jwt.JwtAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -38,7 +38,7 @@ public class SecurityConfig {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
-                    req->req.requestMatchers("/login/**", "/register/**")
+                    req->req.requestMatchers("/market/login/**", "/market/signup/**")
                     .permitAll()
                     .requestMatchers("/admin_only/**")
                     .hasAuthority("ADMIN")

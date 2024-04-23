@@ -1,7 +1,9 @@
 package com.e_commerce.e_commerce.models;
 
 import java.util.Collection;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -31,7 +33,7 @@ public class User implements UserDetails{
     private String lastName;
 
     @Column(nullable = false)
-    private String username;
+    private String userName;
 
     @Column(nullable = false)
     private String email;
@@ -48,44 +50,47 @@ public class User implements UserDetails{
 
     public Integer getId() {
         return id;
-
-    public User( String token,String firstName, String lastName,String userName,String email, String password,String authQuestionAnswer,String questionId) {
-        this.firstName = firstName;
-        this.token = token;
-        this.lastName=lastName;
-        this.email=email;
-        this.userName=userName;
-        this.password=password;
-        this.authQuestionAnswer=authQuestionAnswer;
-        this.authQuestionId=questionId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public User(){}
+
+    public User(Map<String,Object> data) {
+        this.firstName = (String)data.get("firstName");
+        this.lastName=(String)data.get("lastName");
+        this.email=(String) data.get("email");
+        this.userName=(String) data.get("userName");
+        this.password=(String) data.get("password");
+        this.authQuestionAnswer=(String) data.get("questinoAnswer");
+        this.authQuestionId=(String) data.get("questinoId");
+        this.role=(Role) data.get("role");
     }
+
+    
+public Map<Object, Object> userToMap() {
+    Map<Object, Object> data = new LinkedHashMap<>(); 
+
+    // Add user properties to the map
+    data.put("id", id);
+    data.put("firstName", firstName);
+    data.put("lastName", lastName);
+    data.put("email", email);
+    data.put("userName", userName);
+    data.put("Role",role);
+
+    return data;
+}
+
 
     public String getFirstName() {
         return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
     }
 
     public String getLastName() {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
     public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
+        return userName;
     }
 
     public String getEmail() {
@@ -100,17 +105,11 @@ public class User implements UserDetails{
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public Role getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -139,6 +138,7 @@ public class User implements UserDetails{
 
     
     
+    
     public String getAuthQuestionAnswer() {
         return this.authQuestionAnswer;
     }
@@ -146,4 +146,5 @@ public class User implements UserDetails{
     public String getQuestionId() {
         return this.authQuestionId;
     }
+
 }

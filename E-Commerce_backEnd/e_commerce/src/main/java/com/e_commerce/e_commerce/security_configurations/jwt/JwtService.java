@@ -1,4 +1,4 @@
-package com.e_commerce.e_commerce.service;
+package com.e_commerce.e_commerce.security_configurations.jwt;
 
 import java.util.Date;
 import java.util.function.Function;
@@ -8,7 +8,6 @@ import javax.crypto.SecretKey;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import com.e_commerce.e_commerce.models.User;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -18,18 +17,17 @@ import io.jsonwebtoken.security.Keys;
 @Service
 public class JwtService {
 
-    private final String SECRET_KEY = "85101e178598244aca51a590012d226e6e724a0f500c9ad57ab2a439ca27218c";
+    private static final String SECRET_KEY = "85101e178598244aca51a590012d226e6e724a0f500c9ad57ab2a439ca27218c";
 
-    public String generateToken(User user) {
-        String token = Jwts
+    public String generateToken(String email) {
+        return Jwts
                         .builder()
-                        .subject(user.getUsername())
+                        .subject(email)
                         .issuedAt(new Date(System.currentTimeMillis()))
                         .expiration(new Date(System.currentTimeMillis() + 24 * 60 * 60 * 1000))
                         .signWith(getSigninKey())
                         .compact();
         
-        return token;
     }
 
     private SecretKey getSigninKey() {
@@ -54,7 +52,7 @@ public class JwtService {
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
-
+//////need fucking modifiction
     public boolean isValid(String token, UserDetails user) {
         String username = extractUsername(token);
         return (username.equals(user.getUsername())) && !isTokenExpired(token);

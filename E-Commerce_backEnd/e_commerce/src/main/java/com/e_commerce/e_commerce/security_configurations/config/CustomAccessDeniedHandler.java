@@ -1,4 +1,4 @@
-package com.e_commerce.e_commerce.config;
+package com.e_commerce.e_commerce.security_configurations.config;
 
 import java.io.IOException;
 

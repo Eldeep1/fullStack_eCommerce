@@ -15,9 +15,9 @@ CREATE TABLE user (
     last_name text NOT NULL,
 	email VARCHAR(500) ,
     password VARCHAR(255) NOT NULL, -- Assuming hashed passwords stored
-    token VARCHAR(255) NOT NULL,
     auth_question_answer text NOT NULL,
     auth_question_id int NOT NULL references auth_questions(id) ,
+    Role TEXT,
     UNIQUE(email)
 );
 drop table IF EXISTS products;
@@ -62,15 +62,10 @@ CREATE TABLE cart (
 -- );
 
 
-insert into user values(1,"DepoGramming","Ali","Eldeep","alieldeep111@gmail.com","123456","asdf342","DON'T KNOW","1");
+insert into user values(1,"DepoGramming","Ali","Eldeep","alieldeep111@gmail.com","123456","DON'T KNOW","1","USER");
 insert into products values("1", "t-shirt", "a stylish t-shirt", "400", "www.http/meow");
 insert into products values(45, "trousers", "a stylish trousers", 200, "www.http/mememeow");
 insert into products values(4,"meow","not meow",500,"helpppp");
-INSERT INTO products (id, product_name, product_description, product_price, product_image) 
-VALUES 
-(1, 'Product 1', 'Description of Product 1', 50, 'image1.jpg'),
-(2, 'Product 2', 'Description of Product 2', 60, 'image2.jpg'),
-(3, 'Product 3', 'Description of Product 3', 70, 'image3.jpg');
 
 
 
@@ -90,3 +85,4 @@ INSERT INTO auth_questions (id, question) VALUES
 (10, 'What is your favorite color?');
 
 
+select * from user;

@@ -15,7 +15,7 @@ import com.e_commerce.e_commerce.helper.SecurityHelper;
 import com.e_commerce.e_commerce.models.User;
 
 @RestController
-@RequestMapping("market")
+@RequestMapping("market/auth")
 public class LoginController {
     @Autowired
     private LoginServices loginServices;
@@ -27,7 +27,6 @@ public class LoginController {
     public ResponseEntity<Object> loginUser(@RequestBody Map<String, String> credentials) {
         String email = credentials.get("email");
         String password = credentials.get("password");
-        
         User authenticatedUser = loginServices.login(email, password);
         // If authentication is successful, return the user object
         if (authenticatedUser != null) {

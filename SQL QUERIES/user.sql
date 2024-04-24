@@ -62,7 +62,7 @@ CREATE TABLE cart (
 -- );
 
 
-insert into user values(1,"DepoGramming","Ali","Eldeep","alieldeep111@gmail.com","123456","DON'T KNOW","1","USER");
+insert into user values(1,"DepoGramming","Ali","Eldeep","alieldeep111@gmail.com","$2a$10$iYmrSlujOb7uqfqYdRsBJu9vtkN0Wz4znrK8dPXzP/aD3CHcXy.OK","$2a$10$H31L5gXJT9h8o7ik9pWk5e90m2L.k2c9g1gNtaU3hxp.UzE0t2NQu","1","USER");
 insert into products values("1", "t-shirt", "a stylish t-shirt", "400", "www.http/meow");
 insert into products values(45, "trousers", "a stylish trousers", 200, "www.http/mememeow");
 insert into products values(4,"meow","not meow",500,"helpppp");
@@ -84,5 +84,5 @@ INSERT INTO auth_questions (id, question) VALUES
 (9, 'What is your favorite movie?'),
 (10, 'What is your favorite color?');
 
-
-select * from user;
+INSERT INTO user (id, user_name, first_name, last_name, email, password, auth_question_answer, auth_question_id, role)
+VALUES ('2', 'safwat', 'safwat', 'safwat', 'safwat2@gmail.com', '$2a$10$iYmrSlujOb7uqfqYdRsBJu9vtkN0Wz4znrK8dPXzP/aD3CHcXy.OK', '$2a$10$H31L5gXJT9h8o7ik9pWk5e90m2L.k2c9g1gNtaU3hxp.UzE0t2NQu', '1', 'ADMIN');

@@ -21,10 +21,8 @@ public class UserDetailsImp implements UserDetailsService{
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        System.out.println(email);
-        User user =repository.findByEmail(email);
+
         
-        System.out.println(repository.findByEmail(email).getFirstName());
         return repository.findByEmail(email);
     }
 

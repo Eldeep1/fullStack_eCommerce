@@ -16,8 +16,6 @@ import org.springframework.stereotype.Repository;
 public interface UserRepository extends JpaRepository<User, Integer> {
 
 
-    @Query("SELECT u FROM User u WHERE u.email = ?1 AND u.password = ?2")
-    User findByEmailAndPassword(String email, String password);
 
     @Query("SELECT u FROM User u WHERE u.email = ?1")
     public User findByEmail(String email);
@@ -28,6 +26,5 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     public int resetPassword(String newPassword, String email);
 
     
-    @Query("SELECT u FROM User u WHERE u.authQuestionId = ?1 AND u.authQuestionAnswer = ?2 AND u.email = ?3")
-    public User verifyUser(String questionId, String authQuestionAnswer, String email);
+
 }

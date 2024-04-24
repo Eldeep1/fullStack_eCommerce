@@ -19,7 +19,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"email\":\"alieldeep111@gmail.com\",\r\n    \"password\":\"123456\"\r\n}",
+									"raw": "{\r\n    \"email\":\"alieldeep111@gmail.com\",\r\n    \"password\":\"123456\"\r\n}\r\n\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -27,14 +27,45 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/market/login",
-									"protocol": "http",
+									"raw": "https://localhost:8080/market/auth/login",
+									"protocol": "https",
 									"host": [
 										"localhost"
 									],
 									"port": "8080",
 									"path": [
 										"market",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "login as admin",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\":\"safwat2@gmail.com\",\r\n    \"password\":\"123456\"\r\n}\r\n\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:8080/market/auth/login",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"market",
+										"auth",
 										"login"
 									]
 								}
@@ -53,7 +84,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userName\":\"ali\",\r\n    \"firstName\":\"ali\",\r\n    \"lastName\":\"eldeep\",\r\n    \"password\":\"123456\",\r\n    \"email\":\"alieldeep111@gmail.com\",\r\n    \"questinoId\":\"1\",\r\n    \"questinoAnswer\":\"don't know\"\r\n}",
+									"raw": "{\r\n    \"userName\":\"meowation\",\r\n    \"firstName\":\"meowation\",\r\n    \"lastName\":\"meowation\",\r\n    \"password\":\"123456\",\r\n    \"email\":\"alieldeep111@gmail.com\",\r\n    \"questinoId\":\"2\",\r\n    \"questinoAnswer\":\"Cairo\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -61,14 +92,15 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/market/signup",
-									"protocol": "http",
+									"raw": "https://localhost:8080/market/auth/signup",
+									"protocol": "https",
 									"host": [
 										"localhost"
 									],
 									"port": "8080",
 									"path": [
 										"market",
+										"auth",
 										"signup"
 									]
 								}
@@ -82,7 +114,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userName\":\"ali\",\r\n    \"firstName\":\"ali\",\r\n    \"lastName\":\"eldeep\",\r\n    \"password\":\"123456\",\r\n    \"email\":\"meow@gmail.com\",\r\n    \"questinoId\":\"1\",\r\n    \"questinoAnswer\":\"don't know\"\r\n    \r\n}",
+									"raw": "{\r\n    \"userName\":\"ali\",\r\n    \"firstName\":\"ali\",\r\n    \"lastName\":\"eldeep\",\r\n    \"password\":\"123456\",\r\n    \"email\":\"meowww@gmail.com\",\r\n    \"questinoId\":\"1\",\r\n    \"questinoAnswer\":\"don't know\",\r\n    \"role\":\"USER\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -90,14 +122,15 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/market/signup",
-									"protocol": "http",
+									"raw": "https://localhost:8080/market/auth/signup",
+									"protocol": "https",
 									"host": [
 										"localhost"
 									],
 									"port": "8080",
 									"path": [
 										"market",
+										"auth",
 										"signup"
 									]
 								}
@@ -115,15 +148,16 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/market/AuthQuestinos",
-									"protocol": "http",
+									"raw": "https://localhost:8080/market/auth/questinos",
+									"protocol": "https",
 									"host": [
 										"localhost"
 									],
 									"port": "8080",
 									"path": [
 										"market",
-										"AuthQuestinos"
+										"auth",
+										"questinos"
 									]
 								}
 							},
@@ -149,8 +183,8 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/market/auth/checkMail",
-									"protocol": "http",
+									"raw": "https://localhost:8080/market/auth/checkMail",
+									"protocol": "https",
 									"host": [
 										"localhost"
 									],
@@ -179,8 +213,8 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/market/auth/resetPassword",
-									"protocol": "http",
+									"raw": "https://localhost:8080/market/auth/resetPassword",
+									"protocol": "https",
 									"host": [
 										"localhost"
 									],
@@ -204,11 +238,21 @@
 				{
 					"name": "adding order",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhbGllbGRlZXAxMTFAZ21haWwuY29tIiwiaWF0IjoxNzEzOTkwMzkyLCJleHAiOjE3MTQwNzY3OTJ9.uVGlVGj-dyzbjzZe2VHKT4wGJge_Ou0Jf3zHiBfttcvGYFG16mfC714jEdDXQFvr",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "[\r\n    {\r\n    \"orderStatus\":\"new\",\r\n    // \"checkOutMethod\":\"cash on delievery\",\r\n    \"userId\":5,\r\n    \"productId\":2,\r\n    \"quantity\":8,\r\n    \"price\":900\r\n},\r\n{\r\n    \"orderStatus\":\"new\",\r\n    // \"checkOutMethod\":\"cash on delievery\",\r\n    \"userId\":5,\r\n    \"productId\":2,\r\n    \"quantity\":8,\r\n    \"price\":900\r\n},\r\n{\r\n    \"orderStatus\":\"new\",\r\n    // \"checkOutMethod\":\"cash on delievery\",\r\n    \"userId\":5,\r\n    \"productId\":2,\r\n    \"quantity\":8,\r\n    \"price\":900\r\n}\r\n\r\n]",
+							"raw": "[\r\n    {\r\n    \"orderStatus\":\"new\",\r\n    // \"checkOutMethod\":\"cash on delievery\",\r\n    \"userId\":1,\r\n    \"productId\":2,\r\n    \"quantity\":8,\r\n    \"price\":900,\r\n    \"email\":\"alieldeep111@gmail.com\",\r\n    \"token\":\"eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhbGllbGRlZXAxMTFAZ21haWwuY29tIiwiaWF0IjoxNzEzOTc2MjYyLCJleHAiOjE3MTQwNjI2NjJ9.CzVSibH_UT01i-pIzbqKhaSup6Q9MbP0lXbrEzsppVFs--7w9Ybl23fjnsPpAf-P\"},\r\n{\r\n    \"orderStatus\":\"new\",\r\n    // \"checkOutMethod\":\"cash on delievery\",\r\n    \"userId\":1,\r\n    \"productId\":2,\r\n    \"quantity\":8,\r\n    \"price\":900,\r\n        \"email\":\"alieldeep111@gmail.com\",\r\n    \"token\":\"eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhbGllbGRlZXAxMTFAZ21haWwuY29tIiwiaWF0IjoxNzEzOTc2MjYyLCJleHAiOjE3MTQwNjI2NjJ9.CzVSibH_UT01i-pIzbqKhaSup6Q9MbP0lXbrEzsppVFs--7w9Ybl23fjnsPpAf-P\"\r\n},\r\n{\r\n    \"orderStatus\":\"new\",\r\n    // \"checkOutMethod\":\"cash on delievery\",\r\n    \"userId\":1,\r\n    \"productId\":2,\r\n    \"quantity\":8,\r\n    \"price\":900,\r\n        \"email\":\"alieldeep111@gmail.com\",\r\n    \"token\":\"eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhbGllbGRlZXAxMTFAZ21haWwuY29tIiwiaWF0IjoxNzEzOTc2MjYyLCJleHAiOjE3MTQwNjI2NjJ9.CzVSibH_UT01i-pIzbqKhaSup6Q9MbP0lXbrEzsppVFs--7w9Ybl23fjnsPpAf-P\"\r\n}\r\n\r\n]",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -216,8 +260,8 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/market/Orders/add",
-							"protocol": "http",
+							"raw": "https://localhost:8080/market/Orders/add",
+							"protocol": "https",
 							"host": [
 								"localhost"
 							],
@@ -234,6 +278,16 @@
 				{
 					"name": "updating order status",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJzYWZ3YXQyQGdtYWlsLmNvbSIsImlhdCI6MTcxMzk3MTE4MywiZXhwIjoxNzE0MDU3NTgzfQ.nmJd1vEXAk5i9IGPOp5JOI1ym0aS1IEJcVN3xnKmfeS4M3696QxQvYzp_fTkjc_k",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -246,8 +300,8 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/market/Orders/updateStatus",
-							"protocol": "http",
+							"raw": "https://localhost:8080/market/Orders/updateStatus",
+							"protocol": "https",
 							"host": [
 								"localhost"
 							],
@@ -264,11 +318,21 @@
 				{
 					"name": "getting users orders",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJzYWZ3YXQyQGdtYWlsLmNvbSIsImlhdCI6MTcxMzk3MTE4MywiZXhwIjoxNzE0MDU3NTgzfQ.nmJd1vEXAk5i9IGPOp5JOI1ym0aS1IEJcVN3xnKmfeS4M3696QxQvYzp_fTkjc_k",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"userId\":5\r\n}",
+							"raw": "{\r\n    \"userId\":1,\r\n        \"email\":\"alieldeep111@gmail.com\",\r\n    \"token\":\"eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhbGllbGRlZXAxMTFAZ21haWwuY29tIiwiaWF0IjoxNzEzOTc2MjYyLCJleHAiOjE3MTQwNjI2NjJ9.CzVSibH_UT01i-pIzbqKhaSup6Q9MbP0lXbrEzsppVFs--7w9Ybl23fjnsPpAf-P\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -276,8 +340,8 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/market/Orders",
-							"protocol": "http",
+							"raw": "https://localhost:8080/market/Orders",
+							"protocol": "https",
 							"host": [
 								"localhost"
 							],
@@ -298,11 +362,21 @@
 				{
 					"name": "adding to cart",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhbGllbGRlZXAxMTFAZ21haWwuY29tIiwiaWF0IjoxNzEzOTg0Njk4LCJleHAiOjE3MTQwNzEwOTh9.HA_ESkPFdRQkZutaRnpXlN4H72oaZSTwWLRc0mmrCrFbbgyMo7igE9j1ir1IMdY4",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"userId\":1,\r\n    \"productId\":1,\r\n    \"quantity\":4,\r\n    \"price\":500\r\n}",
+							"raw": "{\r\n    \"userId\":1,\r\n    \"productId\":1,\r\n    \"quantity\":4,\r\n    \"price\":500,\r\n    \"email\":\"alieldeep111@gmail.com\",\r\n    \"token\":\"eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhbGllbGRlZXAxMTFAZ21haWwuY29tIiwiaWF0IjoxNzEzOTc2MjYyLCJleHAiOjE3MTQwNjI2NjJ9.CzVSibH_UT01i-pIzbqKhaSup6Q9MbP0lXbrEzsppVFs--7w9Ybl23fjnsPpAf-P\"\r\n\r\n    // token -> extract email \r\n    // email ?\r\n    // extracted email == email \r\n    //user id <- email \r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -310,8 +384,8 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/market/cart/add",
-							"protocol": "http",
+							"raw": "https://localhost:8080/market/cart/add",
+							"protocol": "https",
 							"host": [
 								"localhost"
 							],
@@ -328,11 +402,27 @@
 				{
 					"name": "viewing cart",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhbGllbGRlZXAxMTFAZ21haWwuY29tIiwiaWF0IjoxNzEzOTg4NTgxLCJleHAiOjE3MTQwNzQ5ODF9.pTpk6c2vMbxJXJJKYqzTTiFPqtEleXeNz5De4wm8tSv1PteHaLfR9KdnkQA8kAdy",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "id",
+								"value": "2",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"userId\":1\r\n}",
+							"raw": "{\r\n    \"userId\":1,\r\n    \"email\":\"alieldeep111@gmail.com\",\r\n    \"token\":\"eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhbGllbGRlZXAxMTFAZ21haWwuY29tIiwiaWF0IjoxNzEzOTkwMzkyLCJleHAiOjE3MTQwNzY3OTJ9.uVGlVGj-dyzbjzZe2VHKT4wGJge_Ou0Jf3zHiBfttcvGYFG16mfC714jEdDXQFvr\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -340,8 +430,8 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/market/cart/view",
-							"protocol": "http",
+							"raw": "https://localhost:8080/market/cart/view",
+							"protocol": "https",
 							"host": [
 								"localhost"
 							],
@@ -358,11 +448,21 @@
 				{
 					"name": "remove from cart",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhbGllbGRlZXAxMTFAZ21haWwuY29tIiwiaWF0IjoxNzEzOTkwOTc3LCJleHAiOjE3MTQwNzczNzd9.J7dMT6mSIjMyhhuvA0agSShMCeKnUJJeeB9u7eRvwr_6Hu7YEItibB6tBOxHw9OD",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"cartId\":3\r\n}",
+							"raw": "{\r\n    \"cartId\":1,\r\n    \"userId\":1,\r\n    \"email\":\"alieldeep111@gmail.com\",\r\n    \"token\":\"eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhbGllbGRlZXAxMTFAZ21haWwuY29tIiwiaWF0IjoxNzEzOTkwOTc3LCJleHAiOjE3MTQwNzczNzd9.J7dMT6mSIjMyhhuvA0agSShMCeKnUJJeeB9u7eRvwr_6Hu7YEItibB6tBOxHw9OD\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -370,8 +470,8 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/market/cart/remove",
-							"protocol": "http",
+							"raw": "https://localhost:8080/market/cart/remove",
+							"protocol": "https",
 							"host": [
 								"localhost"
 							],
@@ -396,8 +496,8 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/market/products",
-							"protocol": "http",
+							"raw": "https://localhost:8080/market/products",
+							"protocol": "https",
 							"host": [
 								"localhost"
 							],
@@ -416,8 +516,8 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/market/products/search?q=shirt",
-							"protocol": "http",
+							"raw": "https://localhost:8080/market/products/search?q=meow",
+							"protocol": "https",
 							"host": [
 								"localhost"
 							],
@@ -430,7 +530,7 @@
 							"query": [
 								{
 									"key": "q",
-									"value": "shirt"
+									"value": "meow"
 								}
 							]
 						}
@@ -443,8 +543,8 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/market/products/oneProduct?pID=1",
-							"protocol": "http",
+							"raw": "https://localhost:8080/market/products/oneProduct?pID=1",
+							"protocol": "https",
 							"host": [
 								"localhost"
 							],

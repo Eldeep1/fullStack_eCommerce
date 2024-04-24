@@ -14,6 +14,7 @@ public class RegisterModel {
 
     
     public  String createUser(User user) {
+        
         if(Boolean.TRUE.equals(checkForEmail(user.getEmail()))){
             return "used Email";
         }

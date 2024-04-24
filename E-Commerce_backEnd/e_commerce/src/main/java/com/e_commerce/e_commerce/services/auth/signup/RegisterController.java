@@ -17,7 +17,7 @@ import com.e_commerce.e_commerce.models.User;
 
 
 @RestController
-@RequestMapping("market")
+@RequestMapping("market/auth")
 public class RegisterController {
     private ResponseHelper responseHelper = new ResponseHelper();
     @Autowired
@@ -35,6 +35,11 @@ public class RegisterController {
 
         credentials.put("password", hashedPassword);
         credentials.put("role", "USER");
+
+        String hashedAnswer=(String)credentials.get("questinoAnswer");
+        hashedAnswer=securityHelper.hashString(hashedAnswer);
+        credentials.put("questinoAnswer", hashedAnswer);
+
         User user = new User(credentials);
 
         String signUpResult = registerServices.signUp(user);

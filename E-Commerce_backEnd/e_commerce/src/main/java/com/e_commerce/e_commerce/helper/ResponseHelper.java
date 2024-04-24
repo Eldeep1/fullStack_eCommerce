@@ -27,4 +27,7 @@ public class ResponseHelper {
     public  ResponseEntity<Object> createErrorResponse(HttpStatus status, String message, Object data) {
         return ResponseEntity.status(status).body(generateResponse(ERROR_STATUS, message, data));
     }
+    public ResponseEntity<Object> createUnauthorizedResponse(){
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(generateResponse(ERROR_STATUS,"انت مين ياض",null));
+    }
 }

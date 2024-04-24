@@ -39,9 +39,9 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
                     req->req
-                    .requestMatchers("market/Orders/updateStatus")
+                    .requestMatchers("market/Orders/updateStatus/**")
                     .hasAuthority("ADMIN").
-                    requestMatchers("/market/login/**", "/market/signup/**","/market/products/**","/market/Orders/**")
+                    requestMatchers("/market/auth/**","/market/products/**")
                     .permitAll()
                     .anyRequest()
                     .authenticated()
@@ -55,12 +55,13 @@ public class SecurityConfig {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
+     public static PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-
-
     
-
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
+        return configuration.getAuthenticationManager();
+    }
+    
 }

@@ -4,7 +4,6 @@ import com.e_commerce.e_commerce.models.User;
 
 import jakarta.transaction.Transactional;
 
-import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;

@@ -12,32 +12,36 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.e_commerce.e_commerce.helper.ResponseHelper;
 import com.e_commerce.e_commerce.helper.SecurityHelper;
+import com.e_commerce.e_commerce.helper.Validation;
 import com.e_commerce.e_commerce.models.User;
-
-
 
 @RestController
 @RequestMapping("market/auth")
 public class RegisterController {
     private ResponseHelper responseHelper = new ResponseHelper();
     @Autowired
-    private  SecurityHelper securityHelper ;
-    
+    private SecurityHelper securityHelper;
+
     @Autowired
     RegisterServices registerServices;
 
+    Validation validation=new Validation();
 
     @PostMapping("signup")
     public ResponseEntity<Object> signup(@RequestBody Map<String, Object> credentials) {
 
-        String hashedPassword=(String)credentials.get("password");
-        hashedPassword=securityHelper.hashString(hashedPassword);
+        Map<String,String> validationErrors = validation.validateSignup(credentials);
+        if (!validationErrors.isEmpty()) {
+            return responseHelper.createErrorResponse(HttpStatus.UNAUTHORIZED, "Invalid input fields", validationErrors);
+        }
+        String hashedPassword = (String) credentials.get("password");
+        hashedPassword = securityHelper.hashString(hashedPassword);
 
         credentials.put("password", hashedPassword);
         credentials.put("role", "USER");
 
-        String hashedAnswer=(String)credentials.get("questinoAnswer");
-        hashedAnswer=securityHelper.hashString(hashedAnswer);
+        String hashedAnswer = (String) credentials.get("questinoAnswer");
+        hashedAnswer = securityHelper.hashString(hashedAnswer);
         credentials.put("questinoAnswer", hashedAnswer);
 
         User user = new User(credentials);

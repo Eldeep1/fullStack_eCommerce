@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.e_commerce.e_commerce.helper.ResponseHelper;
 import com.e_commerce.e_commerce.helper.SecurityHelper;
+import com.e_commerce.e_commerce.helper.Validation;
 import com.e_commerce.e_commerce.models.User;
 
 @RestController
@@ -22,10 +23,18 @@ public class LoginController {
     private ResponseHelper responseHelper = new ResponseHelper();
     @Autowired
     private SecurityHelper securityHelper ;
-
+    Validation validation=new Validation();
     @PostMapping("login")
     public ResponseEntity<Object> loginUser(@RequestBody Map<String, String> credentials) {
+
         String email = credentials.get("email");
+        Map<String,String> validateErrors =validation.validateLogin(email);
+        if (!validateErrors.isEmpty()) {
+            return responseHelper.createErrorResponse(HttpStatus.UNAUTHORIZED, "Invalid input fields", validateErrors);
+        }
+        
+
+
         String password = credentials.get("password");
         User authenticatedUser = loginServices.login(email, password);
         // If authentication is successful, return the user object

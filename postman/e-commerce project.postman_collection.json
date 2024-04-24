@@ -1,0 +1,470 @@
+{
+	"info": {
+		"_postman_id": "f6e2f951-8c02-46b1-a54e-058c98be9f29",
+		"name": "e-commerce project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28551081"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Login",
+					"item": [
+						{
+							"name": "login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\":\"alieldeep111@gmail.com\",\r\n    \"password\":\"123456\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/market/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"market",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Signup",
+					"item": [
+						{
+							"name": "signup-used email",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userName\":\"ali\",\r\n    \"firstName\":\"ali\",\r\n    \"lastName\":\"eldeep\",\r\n    \"password\":\"123456\",\r\n    \"email\":\"alieldeep111@gmail.com\",\r\n    \"questinoId\":\"1\",\r\n    \"questinoAnswer\":\"don't know\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/market/signup",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"market",
+										"signup"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "signup-new email",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userName\":\"ali\",\r\n    \"firstName\":\"ali\",\r\n    \"lastName\":\"eldeep\",\r\n    \"password\":\"123456\",\r\n    \"email\":\"meow@gmail.com\",\r\n    \"questinoId\":\"1\",\r\n    \"questinoAnswer\":\"don't know\"\r\n    \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/market/signup",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"market",
+										"signup"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "multifactor authentication",
+					"item": [
+						{
+							"name": "get questions",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/market/AuthQuestinos",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"market",
+										"AuthQuestinos"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "password services",
+					"item": [
+						{
+							"name": "checking for email",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\":\"alieldeep111@gmail.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/market/auth/checkMail",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"market",
+										"auth",
+										"checkMail"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "resetting password-last step",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"question_id\":\"1\",\r\n    \"email\":\"alieldeep111@gmail.com\",\r\n    \"answer\":\"DON'T KNOW\",\r\n    \"newPassword\":\"wwwww\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/market/auth/resetPassword",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"market",
+										"auth",
+										"resetPassword"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "orders",
+			"item": [
+				{
+					"name": "adding order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n    \"orderStatus\":\"new\",\r\n    // \"checkOutMethod\":\"cash on delievery\",\r\n    \"userId\":5,\r\n    \"productId\":2,\r\n    \"quantity\":8,\r\n    \"price\":900\r\n},\r\n{\r\n    \"orderStatus\":\"new\",\r\n    // \"checkOutMethod\":\"cash on delievery\",\r\n    \"userId\":5,\r\n    \"productId\":2,\r\n    \"quantity\":8,\r\n    \"price\":900\r\n},\r\n{\r\n    \"orderStatus\":\"new\",\r\n    // \"checkOutMethod\":\"cash on delievery\",\r\n    \"userId\":5,\r\n    \"productId\":2,\r\n    \"quantity\":8,\r\n    \"price\":900\r\n}\r\n\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/market/Orders/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"market",
+								"Orders",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updating order status",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"orderId\":1,\r\n    \"newStatus\":\"on the wayyyy\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/market/Orders/updateStatus",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"market",
+								"Orders",
+								"updateStatus"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getting users orders",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\":5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/market/Orders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"market",
+								"Orders"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "cart",
+			"item": [
+				{
+					"name": "adding to cart",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\":1,\r\n    \"productId\":1,\r\n    \"quantity\":4,\r\n    \"price\":500\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/market/cart/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"market",
+								"cart",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "viewing cart",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\":1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/market/cart/view",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"market",
+								"cart",
+								"view"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "remove from cart",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cartId\":3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/market/cart/remove",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"market",
+								"cart",
+								"remove"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "products",
+			"item": [
+				{
+					"name": "get all products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/market/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"market",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "search for product",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/market/products/search?q=shirt",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"market",
+								"products",
+								"search"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "shirt"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get one product information",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/market/products/oneProduct?pID=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"market",
+								"products",
+								"oneProduct"
+							],
+							"query": [
+								{
+									"key": "pID",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

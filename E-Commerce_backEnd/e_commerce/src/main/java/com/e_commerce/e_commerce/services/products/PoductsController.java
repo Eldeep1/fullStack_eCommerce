@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
-@RequestMapping("market")
+@RequestMapping("market/products")
 public class PoductsController {
     @Autowired
     private ProductsServices productsServices;
     private ResponseHelper responseHelper = new ResponseHelper();
 
-    @GetMapping("products")
+    @GetMapping("")
     public ResponseEntity<Object> getAllProducts() {
         try {
             return responseHelper.createSuccessResponse("Products Loaded Successfully",productsServices.getAllProducts());
@@ -30,7 +30,7 @@ public class PoductsController {
  
         }
     }
-    @GetMapping("/products/search")
+    @GetMapping("/search")
     public ResponseEntity<Object> searchForProducts(@RequestParam("q") String searchQuery) {
         try {
             return responseHelper.createSuccessResponse("Search done successfully", productsServices.searchForProduct(searchQuery));
@@ -39,7 +39,7 @@ public class PoductsController {
         }
     }
 
-    @GetMapping("/products/oneProduct")
+    @GetMapping("/oneProduct")
     public ResponseEntity<Object> getProductById(@RequestParam("pID") int productId) {
         Products product = productsServices.getProduct(productId);
         if (product != null) {

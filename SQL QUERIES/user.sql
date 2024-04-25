@@ -15,9 +15,9 @@ CREATE TABLE user (
     last_name text NOT NULL,
 	email VARCHAR(500) ,
     password VARCHAR(255) NOT NULL, -- Assuming hashed passwords stored
-    token VARCHAR(255) NOT NULL,
     auth_question_answer text NOT NULL,
     auth_question_id int NOT NULL references auth_questions(id) ,
+    Role TEXT,
     UNIQUE(email)
 );
 drop table IF EXISTS products;
@@ -37,8 +37,7 @@ CREATE TABLE orders (
     order_status VARCHAR(20),
     order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     price int,
-    quantity int,
-    check_out_method varchar(150)
+    quantity int
 );
 drop table IF EXISTS cart;
 CREATE TABLE cart (
@@ -63,15 +62,10 @@ CREATE TABLE cart (
 -- );
 
 
-insert into user values(1,"DepoGramming","Ali","Eldeep","alieldeep111@gmail.com","123456","asdf342","DON'T KNOW","1");
-insert into products values(6, "t-shirt", "a stylish t-shirt", "400", "4.jpg");
-insert into products values(45, "trousers", "a stylish trousers", 200, "5.jpg");
-insert into products values(4,"meow","not meow",500,"6.jpg");
-INSERT INTO products (id, product_name, product_description, product_price, porduct_image) 
-VALUES 
-(1, 'Product 1', 'Description of Product 1', 50, '1.jpg'),
-(2, 'Product 2', 'Description of Product 2', 60, '2.jpg'),
-(3, 'Product 3', 'Description of Product 3', 70, '3.jpg');
+insert into user values(1,"DepoGramming","Ali","Eldeep","alieldeep111@gmail.com","$2a$10$iYmrSlujOb7uqfqYdRsBJu9vtkN0Wz4znrK8dPXzP/aD3CHcXy.OK","$2a$10$H31L5gXJT9h8o7ik9pWk5e90m2L.k2c9g1gNtaU3hxp.UzE0t2NQu","1","USER");
+insert into products values("1", "t-shirt", "a stylish t-shirt", "400", "1.jpg");
+insert into products values(45, "trousers", "a stylish trousers", 200, "2.jpg");
+insert into products values(4,"meow","not meow",500,"3.jpg");
 
 
 
@@ -90,3 +84,5 @@ INSERT INTO auth_questions (id, question) VALUES
 (9, 'What is your favorite movie?'),
 (10, 'What is your favorite color?');
 
+INSERT INTO user (id, user_name, first_name, last_name, email, password, auth_question_answer, auth_question_id, role)
+VALUES ('2', 'safwat', 'safwat', 'safwat', 'safwat2@gmail.com', '$2a$10$iYmrSlujOb7uqfqYdRsBJu9vtkN0Wz4znrK8dPXzP/aD3CHcXy.OK', '$2a$10$H31L5gXJT9h8o7ik9pWk5e90m2L.k2c9g1gNtaU3hxp.UzE0t2NQu', '1', 'ADMIN');

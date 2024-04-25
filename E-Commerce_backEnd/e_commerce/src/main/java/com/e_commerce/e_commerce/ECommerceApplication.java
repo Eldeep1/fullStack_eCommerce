@@ -2,17 +2,7 @@ package com.e_commerce.e_commerce;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
 
-@ComponentScan({
-	"com.e_commerce.e_commerce.services.auth.login",
- 	"com.e_commerce.e_commerce.services.auth.register", 
-	"com.e_commerce.e_commerce.services.products",
-	"com.e_commerce.e_commerce.services.Orders",
-	"com.e_commerce.e_commerce.services.cart",
-	"com.e_commerce.e_commerce.services.auth.forget_password",
-	"com.e_commerce.e_commerce.services.auth.auth_questions"
-})
 
 @SpringBootApplication
 public class ECommerceApplication {

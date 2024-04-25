@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.e_commerce.e_commerce.helper.ResponseHelper;
 
 @RestController
-@RequestMapping("market")
+@RequestMapping("market/auth")
 public class AuthQuestionController {
     @Autowired 
     private AuthQuestionServices authQuestionServices;
     private ResponseHelper responseHelper = new ResponseHelper();
     
-    @GetMapping("AuthQuestinos")
+    @GetMapping("questinos")
     public ResponseEntity<Object>  getAuthQuestions() {
 
         try {

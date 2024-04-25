@@ -1,4 +1,4 @@
-package com.e_commerce.e_commerce.services.auth.register;
+package com.e_commerce.e_commerce.services.auth.signup;
 
 import java.util.Map;
 
@@ -11,30 +11,38 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.e_commerce.e_commerce.helper.ResponseHelper;
-import com.e_commerce.e_commerce.repositories.AuthQuestionsRepo;
+import com.e_commerce.e_commerce.helper.SecurityHelper;
+import com.e_commerce.e_commerce.models.User;
 
-import org.springframework.web.bind.annotation.GetMapping;
 
 
 @RestController
-@RequestMapping("market")
+@RequestMapping("market/auth")
 public class RegisterController {
-    ResponseHelper responseHelper = new ResponseHelper();
+    private ResponseHelper responseHelper = new ResponseHelper();
+    @Autowired
+    private  SecurityHelper securityHelper ;
     
     @Autowired
     RegisterServices registerServices;
 
-    @PostMapping("signup")
-    public ResponseEntity<Object> signup(@RequestBody Map<String, String> credentials) {
 
-        String userName = credentials.get("userName");
-        String firstName = credentials.get("firstName");
-        String lastName = credentials.get("lastName");
-        String email = credentials.get("email");
-        String password = credentials.get("password");
-        String questionAnswer=credentials.get("questinoAnswer");
-        String questionId=credentials.get("questinoId");
-        String signUpResult = registerServices.signUp(firstName, lastName, userName, email, password,questionId,questionAnswer);
+    @PostMapping("signup")
+    public ResponseEntity<Object> signup(@RequestBody Map<String, Object> credentials) {
+
+        String hashedPassword=(String)credentials.get("password");
+        hashedPassword=securityHelper.hashString(hashedPassword);
+
+        credentials.put("password", hashedPassword);
+        credentials.put("role", "USER");
+
+        String hashedAnswer=(String)credentials.get("questinoAnswer");
+        hashedAnswer=securityHelper.hashString(hashedAnswer);
+        credentials.put("questinoAnswer", hashedAnswer);
+
+        User user = new User(credentials);
+
+        String signUpResult = registerServices.signUp(user);
         if (signUpResult.equals("created successfully")) {
 
             return responseHelper.createSuccessResponse("account created successfully", null);

@@ -1,4 +1,5 @@
 package com.e_commerce.e_commerce.helper;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import java.util.LinkedHashMap;
@@ -25,5 +26,8 @@ public class ResponseHelper {
 
     public  ResponseEntity<Object> createErrorResponse(HttpStatus status, String message, Object data) {
         return ResponseEntity.status(status).body(generateResponse(ERROR_STATUS, message, data));
+    }
+    public ResponseEntity<Object> createUnauthorizedResponse(){
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(generateResponse(ERROR_STATUS,"انت مين ياض",null));
     }
 }

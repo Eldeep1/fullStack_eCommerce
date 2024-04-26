@@ -93,7 +93,7 @@
     background-color: #007bff;
     color: #fff;
     border: none;
-    cursor: pointer;"   type="submit" form="orders" id="searchButton" >VIEW</button>
+    cursor: pointer;"   type="submit" form="orders" id="searchButton" onclick="reloadPage()">VIEW</button>
 							<div id="results" style=" margin-top: 20px;
     text-align: left;"></div>
 						</form>
@@ -136,7 +136,7 @@
 						<a href="contact.html">CONTACT</a>
 					</li>
 					<li>
-						<a href="shop.html">SHOP</a>
+						<a href="index.html">SHOP</a>
 					</li>
 					<li>
 						<a href="pricing.html">Pricing</a>
@@ -156,31 +156,46 @@ integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2i
 crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	
 	<script>
-		$(function(){
-			$(".top-header").load("header-bar.html");
-			$("#main-menu").load("main-menu.html");
-		});
+        if(localStorage.getItem("logged") != "true"){
+		    window.location.href = "login.html";
+	    }
+
+        var clickCount = 0;
+
+function reloadPage() {
+    clickCount++;
+
+    if (clickCount === 2) {
+        location.reload(true);
 
 
+
+
+    } else {
 
 
 		 $("#orders").submit(function (event) {
                  event.preventDefault(); //to prevent the default behaviour of submit button (test it to make sure)
 
+                 var token = localStorage.getItem("token");
 
-
-                 var url =" http://localhost:8080/market/Orders"
+                 var url ="https://localhost:8080/market/Orders"
                  $.ajax({
                      url: url,
                      type: "POST",
                        datatype: "json",
              contentType: "application/json",
+             headers: {
+                	'Authorization': 'Bearer ' + token
+           		},
                      data:
 
 
 
               JSON.stringify({
-                 userId: localStorage.getItem("id"),
+                 userId: parseInt(localStorage.getItem("id")),
+                 email: localStorage.getItem("email"),
+                    token: token
              }),
 
                      success: function (data) {
@@ -240,7 +255,7 @@ if(data.data.length==0){
                  })
              })
 
-
+            }}
 
 
 	</script>
@@ -266,13 +281,13 @@ if(data.data.length==0){
     <script src="plugins/slick/slick-animation.min.js"></script>
 
     <!-- Google Mapl -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC72vZw-6tGqFyRhhg5CkF2fqfILn2Tsw"></script>
-    <script type="text/javascript" src="plugins/google-map/gmap.js"></script>
+    
+    
 
     <!-- Main Js File -->
     <script src="js/script.js"></script>
-    
 
+    <script src="js/header.js"></script>
 
   </body>
   </html>

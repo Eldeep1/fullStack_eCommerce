@@ -48,7 +48,7 @@
             <img src="images/logo.png" alt="">
           </a>
           <h2 class="text-center">Create Your Account</h2>
-          <form class="text-left clearfix" id="signin"  onsubmit="return validateForm(event)">
+          <form class="text-left clearfix" id="signin"  >
             <div class="form-group">
               <input type="text" class="form-control" id="first_name" placeholder="First Name" required>
             </div>
@@ -97,7 +97,7 @@
             
 
 
-            var url = "http://localhost:8080/market/AuthQuestinos"
+            var url = "https://localhost:8080/market/auth/questinos"
             $.ajax({
                 url: url,
                 type: "GET",
@@ -122,26 +122,26 @@
 
 
 
-  function validateForm(event) {
-     event.preventDefault();
-      var username = document.getElementById('username').value;
-     var firstName = document.getElementById('first_name').value;
-     var lastName = document.getElementById('last_name').value;
-     var password = document.getElementById('password').value;
-     var email = document.getElementById('email').value;
+//   function validateForm(event) {
+//      event.preventDefault();
+//       var username = document.getElementById('username').value;
+//      var firstName = document.getElementById('first_name').value;
+//      var lastName = document.getElementById('last_name').value;
+//      var password = document.getElementById('password').value;
+//      var email = document.getElementById('email').value;
 
 
 
-     var errorMessage = document.getElementById('error-message');
+//      var errorMessage = document.getElementById('error-message');
 
-     if (firstName === '' || lastName === '' || email === '' || password === '' || username === '') {
-         errorMessage.innerText = 'Please fill in all fields.';
-         return false;
-     }
+//      if (firstName === '' || lastName === '' || email === '' || password === '' || username === '') {
+//          errorMessage.innerText = 'Please fill in all fields.';
+//          return false;
+//      }
 
 
-     window.location.href = 'index.html';
- }
+     
+//  }
 
 
 
@@ -152,7 +152,7 @@
 
    $("#signin").submit(function (event) {
          event.preventDefault(); //to prevent the default behaviour of submit button
-         var url = "http://localhost:8080/market/signup"
+         var url = "https://localhost:8080/market/auth/signup"
 
          var selectedQuestion = $("#questionContainer").find("option:selected");
         var questionId = selectedQuestion.data("id");
@@ -167,13 +167,14 @@
 
 
               JSON.stringify({
-                 userName: document.getElementById('username').value,
-                 firstName: document.getElementById('first_name').value,
-                 lastName: document.getElementById('last_name').value,
-                 password: document.getElementById('password').value,
-                 email: document.getElementById('email').value,
-                 questinoId: questionId,
-                 questinoAnswer: document.getElementById('answer').value
+                userName: document.getElementById('username').value,
+                firstName: document.getElementById('first_name').value,
+                lastName: document.getElementById('last_name').value,
+                password: document.getElementById('password').value,
+                email: document.getElementById('email').value,
+                questinoId: questionId.toString(),
+                questinoAnswer: document.getElementById('answer').value,
+                 role: "USER"
 
              }),
              success:
@@ -184,10 +185,18 @@
              function (data) {
                  console.log(data)
 
-
+                 window.location.href = 'index.html';
              },
-             error: function () {
-                 console.log("error")
+             error: function (one,two,error) {
+                 console.log(error)
+
+                 console.log(document.getElementById('username').value)
+                 console.log(document.getElementById('first_name').value)
+                 console.log(document.getElementById('last_name').value)
+                 console.log(document.getElementById('password').value)
+                 console.log(document.getElementById('email').value)
+                 console.log(document.getElementById('answer').value)
+                 console.log(questionId)
              }
          })
 
@@ -232,8 +241,8 @@ Essential Scripts
     <script src="plugins/slick/slick-animation.min.js"></script>
 
     <!-- Google Mapl -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC72vZw-6tGqFyRhhg5CkF2fqfILn2Tsw"></script>
-    <script type="text/javascript" src="plugins/google-map/gmap.js"></script>
+    
+    
 
     <!-- Main Js File -->
     <script src="js/script.js"></script>

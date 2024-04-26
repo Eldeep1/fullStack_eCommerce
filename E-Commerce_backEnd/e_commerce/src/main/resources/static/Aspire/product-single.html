@@ -51,7 +51,7 @@
 			<div class="col-md-6">
 				<ol class="breadcrumb">
 					<li><a href="index.html">Home</a></li>
-					<li><a href="shop.html">Shop</a></li>
+					<li><a href="index.html">Shop</a></li>
 					<li class="active">Single Product</li>
 				</ol>
 			</div>
@@ -158,7 +158,7 @@
 						<a href="contact.html">CONTACT</a>
 					</li>
 					<li>
-						<a href="shop.html">SHOP</a>
+						<a href="index.html">SHOP</a>
 					</li>
 					<li>
 						<a href="pricing.html">Pricing</a>
@@ -185,7 +185,7 @@
 		//------ VIEWING PRODUCT INFORMATION ------------------
 		function viewProductDetails() {
 
-            var url = `http://localhost:8080/market/products/oneProduct?pID=${pID}`
+            var url = `https://localhost:8080/market/products/oneProduct?pID=${pID}`
             $.ajax({
                 url: url,
                 type: "GET",
@@ -210,48 +210,59 @@
 
 		//------ ADD TO CART BUTTON ------------------
 		$("#add-to-cart-button").click(function () {
-            var url = "http://localhost:8080/market/cart/add";
+			if(localStorage.getItem("logged") === "true"){
+				var url = "https://localhost:8080/market/cart/add";
 
-			const productName = $("#product-name").text();
-			const productImage = $("#product-image").attr("src");
+				const productName = $("#product-name").text();
+				const productImage = $("#product-image").attr("src");
 
-			const userId = localStorage.getItem("id");
-			const productId = pID;
-			const productQuantity = parseInt($("#product-quantity").val());
-			var priceText = $("#product-price").text();
-			const productPrice = priceText.replace('$', '');
-			
+				const userId = localStorage.getItem("id");
+				const productId = pID;
+				const productQuantity = parseInt($("#product-quantity").val());
+				var priceText = $("#product-price").text();
+				const productPrice = priceText.replace('$', '');
+				
 
-			if(productQuantity > 0){
-				$.ajax({
-					url: url,
-					type: "POST",
-					datatype: "json",
-					contentType: "application/json",
-					data: JSON.stringify({
-						productName: productName,
-						productImage: productImage,
-						userId : parseInt(userId),
-						productId : parseInt(productId),
-						quantity : productQuantity,
-						price : parseInt(productPrice)
-					}),
-					success: function () {
-						window.location.href = "cart.html";
-					},
-					error: function (one, two, error) {
-						console.log(error);
-					}
-            	})
-			}
-            
-        });
+				if(productQuantity > 0){
+					$.ajax({
+						url: url,
+						type: "POST",
+						datatype: "json",
+						contentType: "application/json",
+						headers: {
+							'Authorization': 'Bearer ' + localStorage.getItem("token")
+						},
+						data: JSON.stringify({
+							productName: productName,
+							productImage: productImage,
+							userId : parseInt(userId),
+							productId : parseInt(productId),
+							quantity : productQuantity,
+							price : parseInt(productPrice),
+							email: localStorage.getItem("email"),
+							token: localStorage.getItem("token")
+						}),
+						success: function () {
+							window.location.href = "cart.html";
+						},
+						error: function (one, two, error) {
+							console.log(localStorage.getItem("email"));
+							console.log(localStorage.getItem("token"));
+							console.log(error);
+						}
+					})
+				}
+			}else{//(not logged in)
+				window.location.href = "login.html";
+			} 
+		});
+		
 
 		//------ RELATED PRODUCTS ------------------
 		function viewProducts() {
             $('#productContainer').empty();
 
-            var url = "http://localhost:8080/market/products"
+            var url = "https://localhost:8080/market/products"
             $.ajax({
                 url: url,
                 type: "GET",
@@ -295,18 +306,8 @@
 
 
 	</script>
-
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
-integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	
-	<script>
-		$(function(){
-			$(".top-header").load("header-bar.html");
-			$("#main-menu").load("main-menu.html");
-		});
-	</script>
+	<script src="js/header.js"></script>
 
 
 
@@ -333,8 +334,8 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="plugins/slick/slick-animation.min.js"></script>
 
     <!-- Google Mapl -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC72vZw-6tGqFyRhhg5CkF2fqfILn2Tsw"></script>
-    <script type="text/javascript" src="plugins/google-map/gmap.js"></script>
+    
+    
 
     <!-- Main Js File -->
     <script src="js/script.js"></script>

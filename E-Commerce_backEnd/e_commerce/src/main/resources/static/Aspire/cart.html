@@ -123,7 +123,7 @@
 						<a href="contact.html">CONTACT</a>
 					</li>
 					<li>
-						<a href="shop.html">SHOP</a>
+						<a href="index.html">SHOP</a>
 					</li>
 					<li>
 						<a href="pricing.html">Pricing</a>
@@ -143,6 +143,11 @@
 	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 	<script>
+
+	//-------------------VIEW CART----------------------------
+	if(localStorage.getItem("logged") != "true"){
+		window.location.href = "login.html";
+	}
 	var products;	
 
 	$(document).ready(function(){
@@ -150,14 +155,19 @@
 		function viewCart() {
             $('#cart').empty();
 
-            var url = "http://localhost:8080/market/cart/view"
+            var url = "https://localhost:8080/market/cart/view"
             $.ajax({
                 url: url,
                 type: "POST",
                 datatype: "json",
 				contentType: "application/json",
+				headers: {
+                		'Authorization': 'Bearer ' + localStorage.getItem("token")
+           		},
 				data: JSON.stringify({
-                    userId: parseInt(localStorage.getItem("id"))
+                    userId: parseInt(localStorage.getItem("id")),
+					email: localStorage.getItem("email"),
+					token: localStorage.getItem("token")
                 }),
                 success: function (response) {
                     products = response.data;
@@ -193,21 +203,30 @@
         viewCart();
 
 
+
+		//------------------REMOVE FROM CART-------------------------
+
 		//using $("#remove-product-from-cart").click() won't work because that element I'm
 		//refrenceing is not in the DOM because it's dynamicly generated
 		//so instead we refrence the parent $("cart") 
 		//and then refrence the child of it that has that id #remove-product-from-cart
 		//this is called event delegation and i learned it from chatgpt
 		$("#cart").on("click", "#remove-product-from-cart", function () {
-			var url = "http://localhost:8080/market/cart/remove";
+			var url = "https://localhost:8080/market/cart/remove";
 			$.ajax({
 				url: url,
 				type: "POST",
 				datatype: "json",
 				contentType: "application/json",
+				headers: {
+                		'Authorization': 'Bearer ' + localStorage.getItem("token")
+           		},
 				data: JSON.stringify({
 					//"this" refrences the that was clicked and from which the function was called
-					cartId: parseInt($(this).data("cartId")) 
+					cartId: parseInt($(this).data("cartId")),
+					userId: parseInt(localStorage.getItem("id")),
+					email: localStorage.getItem("email"),
+					token: localStorage.getItem("token")
 				}),
 				success: function () {
 					viewCart(); 
@@ -222,12 +241,14 @@
 
 
 
-
+	//------------- ADD ORDER -------------------
 
 	$("#confirm-order").click(function () {
-            var url = "http://localhost:8080/market/Orders/add";
+            var url = "https://localhost:8080/market/Orders/add";
 
 			userId = parseInt(localStorage.getItem("id"));
+			var email = localStorage.getItem("email");
+			var token = localStorage.getItem("token");
 			var orderList = [];
 			for (i = 0; i < products.length; i++) {
 				// Create a new order object
@@ -237,7 +258,10 @@
 					userId: userId,
 					productId: products[i].productId,
 					quantity: products[i].quantity,
-					price: products[i].price
+					price: products[i].price,
+					email: email,
+					token: token
+					
 				};
 
 				// Push the new order object into the orders array
@@ -248,6 +272,9 @@
                 type: "POST",
                 datatype: "json",
                 contentType: "application/json",
+				headers: {
+                	'Authorization': 'Bearer ' + token
+           		},
                 data: JSON.stringify(orderList),
                 success: function () {
                     window.location.href = "confirmation.html";
@@ -262,12 +289,7 @@
 	</script>
 
 		
-	<script>
-		$(function(){
-			$(".top-header").load("header-bar.html");
-			$("#main-menu").load("main-menu.html");
-		});
-	</script>
+	<script src="js/header.js"></script>
 
     <!-- 
     Essential Scripts
@@ -290,9 +312,6 @@
     <script src="plugins/slick/slick.min.js"></script>
     <script src="plugins/slick/slick-animation.min.js"></script>
 
-    <!-- Google Mapl -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC72vZw-6tGqFyRhhg5CkF2fqfILn2Tsw"></script>
-    <script type="text/javascript" src="plugins/google-map/gmap.js"></script>
 
     <!-- Main Js File -->
     <script src="js/script.js"></script>

@@ -68,7 +68,6 @@
         <ul class="list-inline dashboard-menu text-center">
 		  <li><a class="active"  href="profile-details.html">Profile Details</a></li>
           <li><a href="order.html">Orders</a></li> 
-          <li><a href="Add-product.html">Add Product</a></li>
         </ul>
         <div class="dashboard-wrapper dashboard-user-profile">
           <div class="media">
@@ -117,7 +116,7 @@
 						<a href="contact.html">CONTACT</a>
 					</li>
 					<li>
-						<a href="shop.html">SHOP</a>
+						<a href="index.html">SHOP</a>
 					</li>
 					<li>
 						<a href="pricing.html">Pricing</a>
@@ -137,26 +136,21 @@
 	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script>
 	$(document).ready(function(){
-		if(localStorage.getItem("logged")){
+		if(localStorage.getItem("logged") === "true"){
 			$("#username").text(localStorage.getItem("userName"));
 			$("#first-name").text(localStorage.getItem("firstName"));
 			$("#last-name").text(localStorage.getItem("lastName"));
 			$("#email").text(localStorage.getItem("email"));
 
+		}else{
+			window.location.href = "login.html";
 		}
-
-		
 	});
 	
 	</script>
 
 	
-	<script>
-		$(function(){
-			$(".top-header").load("header-bar.html");
-			$("#main-menu").load("main-menu.html");
-		});
-	</script>
+	
     <!-- 
     Essential Scripts
     =====================================-->
@@ -179,12 +173,12 @@
     <script src="plugins/slick/slick-animation.min.js"></script>
 
     <!-- Google Mapl -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC72vZw-6tGqFyRhhg5CkF2fqfILn2Tsw"></script>
-    <script type="text/javascript" src="plugins/google-map/gmap.js"></script>
+    
+    
 
     <!-- Main Js File -->
     <script src="js/script.js"></script>
-    
+    <script src="js/header.js"></script>
 
 
   </body>

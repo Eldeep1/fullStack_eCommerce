@@ -50,7 +50,7 @@
         <div class="col-lg-8 text-center">
           <p data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".1">PRODUCTS</p>
           <h1 data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".5">The beauty of nature <br> is hidden in details.</h1>
-          <a data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".8" class="btn" href="shop.html">Shop Now</a>
+          <a data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".8" class="btn" href="index.html">Shop Now</a>
         </div>
       </div>
     </div>
@@ -61,7 +61,7 @@
         <div class="col-lg-8 text-left">
           <p data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".1">PRODUCTS</p>
           <h1 data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".5">The beauty of nature <br> is hidden in details.</h1>
-          <a data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".8" class="btn" href="shop.html">Shop Now</a>
+          <a data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".8" class="btn" href="index.html">Shop Now</a>
         </div>
       </div>
     </div>
@@ -72,7 +72,7 @@
         <div class="col-lg-8 text-right">
           <p data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".1">PRODUCTS</p>
           <h1 data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".5">The beauty of nature <br> is hidden in details.</h1>
-          <a data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".8" class="btn" href="shop.html">Shop Now</a>
+          <a data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".8" class="btn" href="index.html">Shop Now</a>
         </div>
       </div>
     </div>
@@ -84,34 +84,10 @@
 	<div class="container">
 		<div class="row">
 			<div class="title text-center">
-				<h2>Trendy Products</h2>
+				<h2>Products</h2>
 			</div>
 		</div>
 		<div class="row" id="productContainer">
-			
-			<div class="col-md-4">
-				<div class="product-item">
-					<div class="product-thumb">
-						<span class="bage">Sale</span>
-						<img class="img-responsive" src="images/shop/products/15.jpeg" alt="product-img" />
-						<div class="preview-meta">
-							<ul>
-								<li>
-			                        <a href="#!" ><i class="tf-ion-ios-heart"></i></a>
-								</li>
-								<li>
-									<a href="#!"><i class="tf-ion-android-cart"></i></a>
-								</li>
-							</ul>
-                      	</div>
-					</div>
-					<div class="product-content">
-						<h4><a href="product-single.html">${products[i].productName}</a></h4>
-						<p class="price">${products[i].productPrice}</p>
-					</div>
-				</div>
-			</div>
-
 		</div>
 	</div>
 </section>
@@ -150,7 +126,7 @@
 						<a href="contact.html">CONTACT</a>
 					</li>
 					<li>
-						<a href="shop.html">SHOP</a>
+						<a href="index.html">SHOP</a>
 					</li>
 					<li>
 						<a href="pricing.html">Pricing</a>
@@ -174,7 +150,7 @@
 		function viewProducts() {
             $('#productContainer').empty();
 
-            var url = "http://localhost:8080/market/products"
+            var url = "https://localhost:8080/market/products"
             $.ajax({
                 url: url,
                 type: "GET",
@@ -192,9 +168,6 @@
 											<ul>
 												<li>
 													<a href="product-single.html?pID=${products[i].id}" ><i class="tf-ion-ios-search-strong"></i></a>
-												</li>
-												<li>
-													<a href="#!"><i class="tf-ion-android-cart"></i></a>
 												</li>
 											</ul>
 										</div>
@@ -217,16 +190,11 @@
 
         }
         viewProducts();
-
+		console.log(localStorage.getItem("token"))
 	</script>
 
 
-	<script>
-		$(function(){
-			$(".top-header").load("header-bar.html");
-			$("#main-menu").load("main-menu.html");
-		});
-	</script>
+	
 
 
     <!-- 
@@ -254,7 +222,7 @@
     <!-- Main Js File -->
     <script src="js/script.js"></script>
     
-
+	<script src="js/header.js"></script>
 
   </body>
   </html>

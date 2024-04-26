@@ -73,7 +73,7 @@
     $(document).ready(function(){
         $("#check-email").submit(function (event) {
             event.preventDefault(); //to prevent the default behaviour of submit button
-            var url = "http://localhost:8080/market/auth/checkMail";
+            var url = "https://localhost:8080/market/auth/checkMail";
             var email = document.getElementById('email').value
             $.ajax({
                 url: url,
@@ -122,8 +122,8 @@
     <script src="plugins/slick/slick-animation.min.js"></script>
 
     <!-- Google Mapl -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC72vZw-6tGqFyRhhg5CkF2fqfILn2Tsw"></script>
-    <script type="text/javascript" src="plugins/google-map/gmap.js"></script>
+    
+    
 
     <!-- Main Js File -->
     <script src="js/script.js"></script>

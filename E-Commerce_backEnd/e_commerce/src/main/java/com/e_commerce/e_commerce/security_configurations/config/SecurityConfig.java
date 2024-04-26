@@ -41,7 +41,7 @@ public class SecurityConfig {
                     req->req
                     .requestMatchers("market/Orders/updateStatus/**")
                     .hasAuthority("ADMIN").
-                    requestMatchers("/market/auth/**","/market/products/**")
+                    requestMatchers("/market/auth/**","/market/products/**", "/Aspire/**")
                     .permitAll()
                     .anyRequest()
                     .authenticated()

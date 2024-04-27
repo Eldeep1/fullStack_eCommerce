@@ -5,19 +5,13 @@ import java.util.Map;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
 @Entity(name="auth_questions")
 public class AuthQuestions {
-
     @Id
     private int id;
     private String question;
+
 
     public Map<Object, Object> authQuestionsToMap(){
         Map<Object, Object> data = new LinkedHashMap<>();
@@ -28,5 +22,11 @@ public class AuthQuestions {
 
         return data;
     }
+    public int getId(){
+        return this.id;
+    }
 
+    public String getQuestion(){
+        return this.question;
+    }
 }

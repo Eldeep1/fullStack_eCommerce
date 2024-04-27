@@ -11,17 +11,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@NoArgsConstructor
-@AllArgsConstructor
-@Data
 @Entity
 @Table(name = "orders")
 public class Orders {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id")
@@ -32,6 +24,10 @@ public class Orders {
     // private String checkOutMethod;
     private Date orderDate;
 
+    public Orders(){
+        orderItem = new OrderItem();
+    }
+
     public Orders(Map<String, Object> data) {
         this.orderStatus = (String) data.get("orderStatus");
         this.orderItem=new OrderItem(data);
@@ -39,7 +35,6 @@ public class Orders {
         this.orderDate = new Date();
 
     }
-
     public Map<Object, Object> toMap() {
         Map<Object, Object> data = new LinkedHashMap<>();
         data.put("orderId", orderId);
@@ -51,13 +46,21 @@ public class Orders {
         return data;
     }
 
-    public int getUserId() {
+    public String getOrderStatus() {
+        return orderStatus;
+    }
+
+    public int getOrderId() {
+        return orderId;
+    }
+     public int getUserId() {
         return orderItem.getUserId();
     }
 
     public int getProductId() {
         return  orderItem.getProductId();
     }
+
 
     public int getQuantity() {
         return orderItem.getQuantity();
@@ -67,5 +70,8 @@ public class Orders {
         return orderItem.getPrice();
     }
 
+    public Date getDate() {
+        return orderDate;
+    }
 
 }

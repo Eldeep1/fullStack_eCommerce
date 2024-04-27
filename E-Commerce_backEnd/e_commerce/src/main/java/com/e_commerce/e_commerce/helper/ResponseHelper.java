@@ -1,12 +1,10 @@
 package com.e_commerce.e_commerce.helper;
 
-import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-@Configuration
 public class ResponseHelper {
 
     private static final boolean SUCCESS_STATUS = true;

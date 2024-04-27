@@ -8,7 +8,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "products")
 public class Products {
@@ -20,9 +26,6 @@ public class Products {
     private String productPrice;
     private String productDescription;
     private String porductImage;
-
-    public Products() {
-    }
 
     public Map<Object, Object> productToMap() {
         Map<Object, Object> data = new LinkedHashMap<>();
@@ -37,23 +40,4 @@ public class Products {
         return data;
     }
 
-    public Integer getID() {
-        return this.id;
-    }
-
-    public String getProductName() {
-        return this.productName;
-    }
-
-    public String getProductPrice() {
-        return this.productPrice;
-    }
-
-    public String getProductDescription() {
-        return this.productDescription;
-    }
-
-    public String getProductImage() {
-        return this.porductImage;
-    }
 }

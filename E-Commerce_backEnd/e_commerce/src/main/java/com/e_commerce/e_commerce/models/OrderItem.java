@@ -4,16 +4,21 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import jakarta.persistence.Embeddable;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 @Embeddable
 public class OrderItem {
+
     private int userId;
     private int productId;
     private int quantity;
     private int price;
-    public OrderItem(){
 
-    }
     public OrderItem(Map<String, Object> data){
         this.userId = (int) data.get("userId");
         this.productId = (int) data.get("productId");
@@ -28,26 +33,5 @@ public class OrderItem {
         data.put("price", price);
         return data;
     }
-
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public int getProductId() {
-        return productId;
-    }
-
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-
-
 
 }

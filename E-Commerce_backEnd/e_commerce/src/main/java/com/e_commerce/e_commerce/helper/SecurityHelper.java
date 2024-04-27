@@ -3,6 +3,7 @@ package com.e_commerce.e_commerce.helper;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -11,7 +12,7 @@ import com.e_commerce.e_commerce.repositories.CartRepository;
 import com.e_commerce.e_commerce.repositories.UserRepository;
 import com.e_commerce.e_commerce.security_configurations.jwt.JwtService;
 
-@Component
+@Configuration
 public class SecurityHelper {
     @Autowired
     private PasswordEncoder passwordEncoder;

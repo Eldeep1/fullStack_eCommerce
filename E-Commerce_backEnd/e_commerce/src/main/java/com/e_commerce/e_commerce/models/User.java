@@ -16,6 +16,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -110,6 +111,17 @@ public Map<Object, Object> userToMap() {
         return role;
     }
 
+    @OneToMany(mappedBy = "user")
+    private List<Token> tokens;
+
+    
+    public List<Token> getTokens() {
+        return tokens;
+    }
+
+    public void setTokens(List<Token> tokens) {
+        this.tokens = tokens;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

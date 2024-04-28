@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -25,12 +26,15 @@ public class SecurityConfig {
     private final UserDetailsImp userDetailsImp;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final CustomAccessDeniedHandler accessDeniedHandler;
+    private final CustomLogoutHandler logoutHandler;
+    
 
     public SecurityConfig(UserDetailsImp userDetailsImp, JwtAuthenticationFilter jwtAuthenticationFilter,
-            CustomAccessDeniedHandler accessDeniedHandler) {
+            CustomAccessDeniedHandler accessDeniedHandler, CustomLogoutHandler logoutHandler) {
         this.userDetailsImp = userDetailsImp;
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
         this.accessDeniedHandler = accessDeniedHandler;
+        this.logoutHandler = logoutHandler;
     }
 
     @Bean
@@ -51,6 +55,11 @@ public class SecurityConfig {
                 .sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .requiresChannel(meow->meow.anyRequest().requiresSecure())
+                .logout(l->l.logoutUrl("/logout")
+                    .addLogoutHandler(logoutHandler)
+                    .logoutSuccessHandler(
+                        (request, response, authentication) -> SecurityContextHolder.clearContext()
+                    ))
                 .build();  
     }
 

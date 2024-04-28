@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import com.e_commerce.e_commerce.models.User;
+import com.e_commerce.e_commerce.repositories.TokenRepository;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -17,6 +18,7 @@ import io.jsonwebtoken.security.Keys;
 
 @Service
 public class JwtService {
+    private TokenRepository tokenRepository;
 
     private static final String SECRET_KEY = "85101e178598244aca51a590012d226e6e724a0f500c9ad57ab2a439ca27218c";
 
@@ -56,7 +58,10 @@ public class JwtService {
 //////need fucking modifiction
     public boolean isValid(String token, UserDetails user) {
         String email = extractEmail(token);
-        return (email.equals(((User) user).getEmail())) && !isTokenExpired(token);
+        boolean isValidToken = tokenRepository.findByToken(token)
+                                                .map(t->t.isLoggedOut()).orElse(false);
+
+        return (email.equals(((User) user).getEmail())) && !isTokenExpired(token) && isValidToken;
     }
 
     private boolean isTokenExpired(String token) {

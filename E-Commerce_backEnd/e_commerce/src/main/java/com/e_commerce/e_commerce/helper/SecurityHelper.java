@@ -7,9 +7,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.e_commerce.e_commerce.models.Cart;
+import com.e_commerce.e_commerce.models.Token;
+import com.e_commerce.e_commerce.models.User;
 import com.e_commerce.e_commerce.repositories.CartRepository;
+import com.e_commerce.e_commerce.repositories.TokenRepository;
 import com.e_commerce.e_commerce.repositories.UserRepository;
 import com.e_commerce.e_commerce.security_configurations.jwt.JwtService;
+import java.util.List;
 
 @Component
 public class SecurityHelper {
@@ -20,6 +24,8 @@ public class SecurityHelper {
     private UserRepository userRepository;
     @Autowired 
     CartRepository cartRepository;
+    @Autowired
+    private TokenRepository tokenRepository;
 
     public String hashString(String plainText) {
 
@@ -63,5 +69,23 @@ public class SecurityHelper {
     public String generateToken(String email) {
 
         return jwtService.generateToken(email);
+    }
+
+    public void  saveGeneratedToken(String jwt, User user) {
+        Token token = new Token();
+        token.setToken(jwt);
+        token.setLoggedOut(false);
+        token.setUser(user);
+        tokenRepository.save(token);
+    }
+
+    public void revokeAllTokenByUser(User user) {
+        List<Token> validTokenListByUser = tokenRepository.findAllTokenByUser(user.getId());
+
+        if(!validTokenListByUser.isEmpty()) {
+            validTokenListByUser.forEach(t->{
+                t.setLoggedOut(true);
+            });
+        }
     }
 }

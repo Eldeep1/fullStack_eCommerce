@@ -32,6 +32,8 @@ public class LoginController {
         if (authenticatedUser != null) {
 
             String token = securityHelper.generateToken(email);
+            securityHelper.revokeAllTokenByUser(authenticatedUser);
+            securityHelper.saveGeneratedToken(token, authenticatedUser);
 
             Map<Object, Object> userData = authenticatedUser.userToMap();
 

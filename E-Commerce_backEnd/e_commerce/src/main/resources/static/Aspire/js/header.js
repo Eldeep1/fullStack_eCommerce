@@ -28,3 +28,13 @@ $(document).ready(function(){
     $(".top-header").load("header-bar.html", profileDropDown);
     $("#main-menu").load("main-menu.html");
 });
+
+
+$(document).ready(function(){
+    if(localStorage.getItem("role") === "ADMIN"){
+        $("#dashboardItems").append(`<li><a class"" href="all-users-orders.html">All Users' Orders</a></li>
+                                    <li><a class"" href="Add-product.html">Add Product</a></li>
+                                    <li><a class"" href="add-admin.html">Add Admin</a></li>
+                                    `);
+    }
+});

@@ -66,21 +66,29 @@
     <div class="row">
       <div class="col-md-12">
         <ul class="list-inline dashboard-menu text-center" id="dashboardItems">
-		  <li><a class="active"  href="profile-details.html">Profile Details</a></li>
+		  <li><a href="profile-details.html">Profile Details</a></li>
           <li><a href="order.html">Orders</a></li>
-		  
+          
         </ul>
         <div class="dashboard-wrapper dashboard-user-profile">
-          <div class="media">
-            <div class="media-body">
-              <ul class="user-profile-list">
-                <li><span>USERNAME:</span><span id="username"></span></li>
-                <li><span>FIRST NAME:</span><span id="first-name"></span></li>
-                <li><span>LAST NAME:</span><span id="last-name"></span></li>
-                <li><span>EMAIL:</span><span id="email"></span></li>
-              </ul>
-            </div>
-          </div>
+            <div class="block">
+                <div class="product-list">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th class="">Order ID</th>
+                          <th class="">Order Status</th>
+                          <th class="">Date</th>
+                          <th class="">price</th>
+                          <th class="">Product ID</th>
+                          <th class="">Quantity</th>
+                          <th class="">User ID</th>
+                        </tr>
+                      </thead>
+                      <tbody id="cart"></tbody>
+                    </table>
+                </div>
+              </div>
         </div>
       </div>
     </div>
@@ -137,15 +145,49 @@
 	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script>
 	$(document).ready(function(){
-		if(localStorage.getItem("logged") === "true"){
-			$("#username").text(localStorage.getItem("userName"));
-			$("#first-name").text(localStorage.getItem("firstName"));
-			$("#last-name").text(localStorage.getItem("lastName"));
-			$("#email").text(localStorage.getItem("email"));
+        var cartId;
+		function viewCart() {
+            $('#cart').empty();
 
-		}else{
-			window.location.href = "login.html";
-		}
+            var url = "https://localhost:8080/market/Orders/viewAll"
+            $.ajax({
+                url: url,
+                type: "GET",
+                datatype: "json",
+				contentType: "application/json",
+				headers: {
+                		'Authorization': 'Bearer ' + localStorage.getItem("token")
+           		},
+                success: function (response) {
+                    products = response.data;
+					if(products.length >= 1){
+						for (i = 0; i < products.length; i++) {
+						var productHTML = `
+							<tr class="">
+
+								<td class="">${products[i].orderId}</td>
+								<td class="">${products[i].orderStatus}</td>
+								<td class="">${products[i].date}</td>
+								<td class="">$${products[i].price}</td>
+								<td class="">${products[i].productId}</td>
+								<td class="">${products[i].quantity}</td>
+								<td class="">${products[i].userId}</td>
+							</tr>
+							`;
+                        $("#cart").append(productHTML);
+						}
+					}else{
+						window.location.href = "empty-cart.html";
+					}
+                    
+                },
+                error: function (one, two, error) {
+                    console.log(one, two, error);
+                }
+            })
+
+        }
+        viewCart();
 	});
 	
 	</script>

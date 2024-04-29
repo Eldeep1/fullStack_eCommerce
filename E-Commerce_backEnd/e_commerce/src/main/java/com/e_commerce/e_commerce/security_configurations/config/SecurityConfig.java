@@ -39,7 +39,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
                     req->req
-                    .requestMatchers("market/Orders/updateStatus/**")
+                    .requestMatchers("market/Orders/updateStatus/**","market/Orders/viewAll/**","market/auth/addAdmin/**","/market/products/addProduct")
                     .hasAuthority("ADMIN").
                     requestMatchers("/market/auth/**","/market/products/**")
                     .permitAll()

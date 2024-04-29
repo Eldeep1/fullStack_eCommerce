@@ -15,6 +15,7 @@ import com.e_commerce.e_commerce.helper.SecurityHelper;
 import com.e_commerce.e_commerce.models.Orders;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -43,6 +44,11 @@ public class OrdersController {
         } else {
             return responseHelper.createUnauthorizedResponse();
         }
+    }
+     @GetMapping("/viewAll")
+    public ResponseEntity<Object> getMethodName() {
+
+        return responseHelper.createSuccessResponse("orders loaded successfully", ordersModel.getAllOrders());
     }
 
     @PostMapping("/updateStatus")

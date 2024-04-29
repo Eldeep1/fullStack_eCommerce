@@ -1,6 +1,7 @@
 package com.e_commerce.e_commerce.services.products;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,5 +18,14 @@ public class ProductsServices {
     }
     public Products getProduct(int productId){
         return productsModel.getProduct(productId);
+    }
+    public Boolean addProduct(Map<String,Object> data){
+        try {
+            productsModel.addProducts(data);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+
     }
 }

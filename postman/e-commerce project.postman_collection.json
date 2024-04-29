@@ -136,6 +136,46 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "add admin",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhbGllbGRlZXAxMTFAZ21haWwuY29tIiwiaWF0IjoxNzE0NDIyODA3LCJleHAiOjE3MTQ1MDkyMDd9.GL5OV3YsYliotV_xGpBrXvdX3D2FxnlxkLowUNSPIg1oJAHBrsQzcsxpWC7Ya8BZ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userName\":\"ali eldeep\",\r\n    \"firstName\":\"meowation\",\r\n    \"lastName\":\"meowation\",\r\n    \"password\":\"123456\",\r\n    \"email\":\"sssss@gmail.com\",\r\n    \"questinoId\":\"2\",\r\n    \"questinoAnswer\":\"wwwwwA\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:8080/market/auth/addAdmin",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"market",
+										"auth",
+										"addAdmin"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
@@ -353,6 +393,37 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "view all",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJzYWZ3YXQyQGdtYWlsLmNvbSIsImlhdCI6MTcxNDM5NDEyMiwiZXhwIjoxNzE0NDgwNTIyfQ.a_rx5_dDuiZqGg5mPm1hDNGid0yu7esMiTGLxSDv0VDkKrR_RnIzW5cMd_vDZGHJ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:8080/market/Orders/viewAll",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"market",
+								"Orders",
+								"viewAll"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -559,6 +630,46 @@
 									"key": "pID",
 									"value": "1"
 								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJzYWZ3YXQyQGdtYWlsLmNvbSIsImlhdCI6MTcxNDM5NDEyMiwiZXhwIjoxNzE0NDgwNTIyfQ.a_rx5_dDuiZqGg5mPm1hDNGid0yu7esMiTGLxSDv0VDkKrR_RnIzW5cMd_vDZGHJ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productName\":\"shoes\",\r\n    \"productPrice\":\"900\",\r\n    \"productDescription\":\"black shoes that looks very good and fit to all the trousers\",\r\n    \"porductImage\":\"www.image.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:8080/market/products/addProduct",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"market",
+								"products",
+								"addProduct"
 							]
 						}
 					},

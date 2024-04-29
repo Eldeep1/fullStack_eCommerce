@@ -23,6 +23,13 @@ public class Products {
 
     public Products() {
     }
+    public Products(Map<String,Object> data) {
+        this.productName=(String)data.get("productName");
+        this.productPrice=(String)data.get("productPrice");
+        this.productDescription=(String)data.get("productDescription");
+        this.porductImage=(String)data.get("porductImage");
+
+    }
 
     public Map<Object, Object> productToMap() {
         Map<Object, Object> data = new LinkedHashMap<>();

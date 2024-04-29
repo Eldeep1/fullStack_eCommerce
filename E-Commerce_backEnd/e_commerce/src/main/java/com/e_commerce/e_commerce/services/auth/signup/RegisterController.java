@@ -60,4 +60,40 @@ public class RegisterController {
         }
 
     }
+
+    @PostMapping("addAdmin")
+    public ResponseEntity<Object> addAdmin(@RequestBody Map<String, Object> credentials) {
+
+        String hashedPassword=(String)credentials.get("password");
+        hashedPassword=securityHelper.hashString(hashedPassword);
+
+        credentials.put("password", hashedPassword);
+        credentials.put("role", "ADMIN");
+
+        String hashedAnswer=(String)credentials.get("questinoAnswer");
+        hashedAnswer=securityHelper.hashString(hashedAnswer);
+        credentials.put("questinoAnswer", hashedAnswer);
+
+        User user = new User(credentials);
+
+        String signUpResult = registerServices.signUp(user);
+        if (signUpResult.equals("created successfully")) {
+
+            return responseHelper.createSuccessResponse("admin created successfully", null);
+        } else if (signUpResult.equals("used Email")) {
+            return responseHelper.createErrorResponse(HttpStatus.BAD_REQUEST, "The Email is Already Used", null);
+
+        } else if (signUpResult.equals("database error")) {
+            return responseHelper.createErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, "Internal Database Error",
+                    null);
+        }
+
+        else {
+            return responseHelper.createErrorResponse(HttpStatus.BAD_REQUEST, "Password is not valid", null);
+
+        }
+
+    }
+
+
 }

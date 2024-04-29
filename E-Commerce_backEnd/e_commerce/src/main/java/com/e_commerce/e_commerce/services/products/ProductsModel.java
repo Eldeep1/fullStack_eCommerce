@@ -2,6 +2,7 @@ package com.e_commerce.e_commerce.services.products;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,5 +28,14 @@ public class ProductsModel {
     public Products getProduct(int productId){
         Optional<Products> optionalProduct = productRepository.findById(productId);
         return optionalProduct.orElse(null); // Or throw an exception if necessary
+    }
+    public Boolean addProducts(Map<String,Object> data){
+        Products product = new Products(data);
+        try {
+            productRepository.save(product);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

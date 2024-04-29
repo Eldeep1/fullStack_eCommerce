@@ -20,10 +20,11 @@ CREATE TABLE user (
     Role TEXT,
     UNIQUE(email)
 );
+
 drop table IF EXISTS products;
 
 CREATE TABLE products (
-    id INT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     product_name VARCHAR(255),
     product_description TEXT,
     product_price INT,
@@ -86,3 +87,4 @@ INSERT INTO auth_questions (id, question) VALUES
 
 INSERT INTO user (id, user_name, first_name, last_name, email, password, auth_question_answer, auth_question_id, role)
 VALUES ('2', 'safwat', 'safwat', 'safwat', 'safwat2@gmail.com', '$2a$10$iYmrSlujOb7uqfqYdRsBJu9vtkN0Wz4znrK8dPXzP/aD3CHcXy.OK', '$2a$10$H31L5gXJT9h8o7ik9pWk5e90m2L.k2c9g1gNtaU3hxp.UzE0t2NQu', '1', 'ADMIN');
+

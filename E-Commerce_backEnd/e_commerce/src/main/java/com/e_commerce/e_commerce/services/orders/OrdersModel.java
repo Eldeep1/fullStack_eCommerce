@@ -26,6 +26,9 @@ public class OrdersModel {
         }
         return true;
     }
+    public List<Orders> getAllOrders(){
+        return (List<Orders>) orderRepository.findAll();
+    }
 
     public Boolean addOrder(List<Orders> order) {
         try {

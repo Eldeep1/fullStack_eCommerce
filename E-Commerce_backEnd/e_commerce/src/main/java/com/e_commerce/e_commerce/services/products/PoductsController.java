@@ -6,10 +6,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.e_commerce.e_commerce.helper.ResponseHelper;
 import com.e_commerce.e_commerce.models.Products;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
@@ -46,6 +50,16 @@ public class PoductsController {
             return responseHelper.createSuccessResponse("product got succesfully", product.productToMap());
         } else {
             return responseHelper.createErrorResponse(HttpStatus.NOT_FOUND, "no such product", null);
+        }
+    }
+    
+    @PostMapping("/addProduct")
+    public ResponseEntity<Object> addProduct(@RequestBody Map<String,Object> data) {
+        
+        if (productsServices.addProduct(data)) {
+            return responseHelper.createSuccessResponse("product added succesfully", null);
+        } else {
+            return responseHelper.createErrorResponse(HttpStatus.NOT_FOUND, "couldn't add the product", null);
         }
     }
     

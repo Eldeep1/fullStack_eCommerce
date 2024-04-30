@@ -21,43 +21,50 @@ public class ProductsService {
 
     public ResponseEntity<Object> getAllProductsServ() {
         try {
-            return responseHelper.createSuccessResponse("Products Loaded Successfully",getAllProducts());
+            List<Products> productsList =productsModel.getAllProducts();
+            if(productsList.isEmpty()){
+                throw new Exception("There are no products ");
+            }
+            return responseHelper.createSuccessResponse("Products Loaded Successfully",productsList);
 
         } catch (Exception e) {
-            return responseHelper.createErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR,"Error Loading Products \n "+e,null);
-
+            throw new RuntimeException("Error Loading Products , "+e.getMessage());
         }
     }
 
     public ResponseEntity<Object> searchForProductsServ(@RequestParam("q") String searchQuery) {
         try {
-            return responseHelper.createSuccessResponse("Search done successfully",searchForProduct(searchQuery));
+            List<Products> products = productsModel.searchForProduct(searchQuery);
+            if(products.isEmpty())
+                throw new Exception("Product name doesn't exist , Tyr again !");
+            return responseHelper.createSuccessResponse("Search done successfully ",products);
         } catch (Exception e) {
-            return responseHelper.createErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, ""+ e, null);
+            throw new RuntimeException("Error while getting the product, "+e.getMessage());
         }
     }
 
     public ResponseEntity<Object> getProductByIdServ(@RequestParam("pID") int productId) {
-        Products product = getProduct(productId);
-        if (product != null) {
-            return responseHelper.createSuccessResponse("product got succesfully", product.productToMap());
-        } else {
-            return responseHelper.createErrorResponse(HttpStatus.NOT_FOUND, "no such product", null);
+        try {
+            Products product = productsModel.getProduct(productId);
+            if (product == null)
+                throw new Exception("Product Id doesn't exist , Tyr again !");
+            return responseHelper.createSuccessResponse("product got successfully", product.productToMap());
+        } catch (Exception e) {
+            throw new RuntimeException("Error while getting the product, "+e.getMessage());
         }
     }
 
-    public List<Products> getAllProducts() {
-        return productsModel.getAllProducts();
-    }
 
     public List<Products> searchForProduct(String keyword){
-        return productsModel.searchForProduct(keyword);
+        try {
+            List<Products> product = productsModel.searchForProduct(keyword);
+            if(product.isEmpty())
+                throw new Exception("Product name doesn't exist , Tyr again !");
+            return product;
+        } catch (Exception e) {
+            throw new RuntimeException("Error while getting the product, "+e.getMessage());
+        }
     }
-
-    public Products getProduct(int productId){
-        return productsModel.getProduct(productId);
-    }
-
 
 
 }

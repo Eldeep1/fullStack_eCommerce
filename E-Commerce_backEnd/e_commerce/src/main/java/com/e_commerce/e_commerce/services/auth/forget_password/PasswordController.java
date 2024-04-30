@@ -28,8 +28,8 @@ public class PasswordController {
 
 
     @PutMapping("resetPassword")
-    public ResponseEntity<Object>  resettingpassword(@RequestBody Map<String,String> data) {
-        return passwordServices.resettingpasswordServ(data);
+    public ResponseEntity<Object>  resettingPassword(@RequestBody Map<String,String> data) {
+        return passwordServices.resettingPasswordServ(data);
     }
 
     @PostMapping("checkMail")

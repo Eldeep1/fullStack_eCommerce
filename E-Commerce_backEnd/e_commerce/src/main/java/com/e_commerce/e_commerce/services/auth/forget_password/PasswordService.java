@@ -1,7 +1,6 @@
 package com.e_commerce.e_commerce.services.auth.forget_password;
 
 import com.e_commerce.e_commerce.helper.ResponseHelper;
-import com.e_commerce.e_commerce.helper.Validation;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,20 +23,37 @@ public class PasswordService {
     private final  SecurityHelper securityHelper;
     private final ResponseHelper responseHelper;
 
-    public Boolean verifyUser(String questionId, String email, String answer){
-        User user=userRepository.findByEmail(email);
 
-        if (Boolean.TRUE.equals(securityHelper.checkHashEquality(answer, user.getAuthQuestionAnswer()))&&Objects.equals(user.getQuestionId(), questionId)) {
-            return true;
+    public ResponseEntity<Object> resettingPasswordServ(@RequestBody Map<String,String> data) {
+        try {
+            if (!verifyUser(data.get("question_id"), data.get("email"),data.get("answer"))) {
+                throw new Exception("Credentials are wrong");
+            }
+
+            if(resetPassword(data.get("newPassword"), data.get("email"))){
+                return responseHelper.createSuccessResponse("password is resetted successfully", null);
+            }
+            else {
+                throw new Exception("can not reset the password");
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-        return false;
-
     }
 
-    public Boolean resetPassword(String newPassword, String email){
-        
-        String hashedNewPassword=securityHelper.hashString(newPassword);
-        return userRepository.resetPassword(hashedNewPassword, email)>0;
+    public ResponseEntity<Object>  checkEmailServ(@RequestBody Map<String,String> data) {
+        try {
+            String email=data.get("email");
+            if(checkForEmail(email)){
+                return responseHelper.createSuccessResponse("email exists", null);
+            }
+            else
+                throw  new Exception("can not find email");
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public Boolean checkForEmail(String email){
@@ -45,34 +61,28 @@ public class PasswordService {
             if (userRepository.findByEmail(email) == null) {
                 return false;
             };
-            return true;   
+            return true;
         } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Boolean verifyUser(String questionId, String email, String answer){
+        try{
+            User user=userRepository.findByEmail(email);
+            if ((user !=null) && (Boolean.TRUE.equals(securityHelper.checkHashEquality(answer, user.getAuthQuestionAnswer()))&&Objects.equals(user.getQuestionId(), questionId))) {
+                return true;
+            }
             return false;
-        }
-    }
-
-    public ResponseEntity<Object> resettingpasswordServ(@RequestBody Map<String,String> data) {
-
-        //1-check if the question and the answer exists
-        //2- reset the password
-        //here, we should get email , questino id, questino answer, and new password!
-        try {
-
-            return resetPassword(data.get("newPassword"), data.get("email"))?
-                    responseHelper.createSuccessResponse("password resetted successfully", null):
-                    responseHelper.createErrorResponse(HttpStatus.UNAUTHORIZED, "can not reset the password",null);
         } catch (Exception e) {
-            System.out.println(e);
-            return responseHelper.createErrorResponse(HttpStatus.UNAUTHORIZED, "can not reset the password",e);
+            throw new RuntimeException(e);
         }
     }
 
-    public ResponseEntity<Object>  checkEmailServ(@RequestBody Map<String,String> data) {
-        String email=data.get("email");
-            return checkForEmail(email)?
-                    responseHelper.createSuccessResponse("email exists", null):
-                    responseHelper.createErrorResponse(HttpStatus.NOT_FOUND, "can not find email",null);
-    }
+    public Boolean resetPassword(String newPassword, String email){
 
+        String hashedNewPassword=securityHelper.hashString(newPassword);
+        return userRepository.resetPassword(hashedNewPassword, email)>0;
+    }
     
 }

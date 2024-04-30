@@ -15,39 +15,49 @@ public class Validation {
 
     }
 
-    public Map<String,String> validateSignup(Map<String, Object> credantials){
+    public Void validateSignup(Map<String, Object> credantials){
+        try {
+            Map<String,String> errors= new LinkedHashMap<>();
+            if(!validateFirstName((String)credantials.get("firstName"))){
+                throw new Exception("Firstname must contain at least 3 characters");
+                //errors.put("firstname","Firstname must contain at least 3 characters");
+            }
+            if(!validateLastName((String)credantials.get("lastName"))){
+                throw new Exception("Lastname must contain at least 3 characters");
+                //errors.put("lastname","Lastname must contain at least 3 characters");
+            }
+            if (!validateUserName((String)credantials.get("userName"))) {
+                throw new Exception("Username must contain at least 3 characters and a maximum of 20 characters");
+                //errors.put("username","Username must contain at least 3 characters and a maximum of 20 characters");
+            }
+            if(!validateEmail((String)credantials.get("email"))){
+                throw new Exception("The email must be in correct format");
+                //errors.put("email","The email must be in correct format");
+            }
+            if(!validatePassword((String)credantials.get("password"))){
+                throw new Exception("Password must contain exactly one capiltal letter and least two digits, with a length between 4 and 10 characters");
+                //errors.put("password","Password must contain exactly one capiltal letter and least two digits, with a length between 4 and 10 characters");
+            }
+            if(!validateQuestionAnswer((String)credantials.get("questinoAnswer"))){
+                throw new Exception("QuestionAnswer must contain at least 3 characters and not end with ' and <>");
+                //errors.put("QuestionAnswer","QuestionAnswer must contain at least 3 characters and not end with ' and <>");
+            }
 
-        Map<String,String> errors= new LinkedHashMap<>();
-        if(!validateFirstName((String)credantials.get("firstName"))){
-            errors.put("firstname","Firstname must contain at least 3 characters");
+            return null;
+        } catch (Exception ex){
+            throw new RuntimeException(ex);
         }
-        if(!validateLastName((String)credantials.get("lastName"))){
-            errors.put("lastname","Lastname must contain at least 3 characters");
-        }
-        if (!validateUserName((String)credantials.get("userName"))) {
-            errors.put("username","Username must contain at least 3 characters and a maximum of 20 characters");    
-        }
-        if(!validateEmail((String)credantials.get("email"))){
-            errors.put("email","The email must be in correct format");
-        }
-         if(!validatePassword((String)credantials.get("password"))){
-            errors.put("password","Password must contain exactly one capiltal letter and least two digits, with a length between 4 and 10 characters");
-        }
-        if(!validateQuestionAnswer((String)credantials.get("questinoAnswer"))){
-            errors.put("QuestionAnswer","QuestionAnswer must contain at least 3 characters and not end with ' and <>");
-        }
-        
-        return errors;
     }
 
-    public Map<String,String> validateLogin(String email){
-
-        Map<String,String> errors= new LinkedHashMap<>();
-        if(!validateEmailLogin(email)){
-            errors.put("Email","Please enter email in correct format");
+    public void validateLogin(String email){
+        try {
+            Map<String,String> errors= new LinkedHashMap<>();
+            if(!validateEmailLogin(email)){
+                throw new Exception("Please enter email in correct format");
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-        return errors;
-
     }
     private boolean validateFirstName(String firstname){
 

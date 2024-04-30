@@ -26,12 +26,19 @@ public class LoginService {
     private final Validation validation;
 
     public User login(String email, String password){
-        User user =userRepository.findByEmail(email);
-        if (securityHelper.checkHashEquality(password, user.getPassword())) {
-            return user;
-        }
-        else{
-            return null;
+        try {
+            User user =userRepository.findByEmail(email);
+            if(user == null)
+                throw new Exception("Email not found !");
+
+            if (securityHelper.checkHashEquality(password, user.getPassword())) {
+                return user;
+            }
+            else{
+                throw new Exception("Invalid Credentials");
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 

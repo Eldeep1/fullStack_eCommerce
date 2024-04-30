@@ -21,6 +21,7 @@ public class ProductsController {
     public ResponseEntity<Object> getAllProducts() {
         return productsService.getAllProductsServ();
     }
+
     @GetMapping("/search")
     public ResponseEntity<Object> searchForProducts(@RequestParam("q") String searchQuery) {
         return productsService.searchForProductsServ(searchQuery);

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Aspire  | E-shoping</title>
+    <!-- Mobile Specific Metas
+ ================================================== -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Construction Html5 Template">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="author" content="Themefisher">
+    <meta name="generator" content="Themefisher Constra HTML Template v1.0">
+
+    <!-- theme meta -->
+    <meta name="theme-name" content="aviato" />
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.png" />
+
+    <!-- Themefisher Icon font -->
+    <link rel="stylesheet" href="plugins/themefisher-font/style.css">
+    <!-- bootstrap.min css -->
+    <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css">
+
+    <!-- Animate css -->
+    <link rel="stylesheet" href="plugins/animate/animate.css">
+    <!-- Slick Carousel -->
+    <link rel="stylesheet" href="plugins/slick/slick.css">
+    <link rel="stylesheet" href="plugins/slick/slick-theme.css">
+
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+
+
+
+                tr {
+                    list-style-type: none;
+                    padding: 0;
+                    margin: 0;
+
+
+                }
+
+                td {
+                    padding: 40px 100px;
+                    background-color: #f2f2f2;
+                    border-bottom: 1px solid #ddd;
+
+                }
+
+
+                td:hover {
+                    background-color: #e0e0e0;
+                }
+
+        #product-image1{
+  width: 200px; /* تحديد العرض بـ 200 بيكسل */
+  height: auto; /* تحديد الارتفاع بشكل تلقائي للحفاظ على تناسب الصورة */
+}
+
+
+    </style>
+
+</head>
+<body>
+<!-- Start Top Header Bar -->
+<section class="top-header"></section>
+
+<div class="dashboard-wrapper user-dashboard">
+    <div class="table-responsive">
+<form class="text-left clearfix" id="search" action="#" >
+<div class="container"
+     style=" max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+    padding-top: 50px;"
+>
+    <h1>Search Products</h1>
+    <input type="text" id="searchInput" placeholder="Enter product name" style=" padding: 10px;
+    width: 60%;
+    margin-bottom: 10px;">
+    <button  style=" padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;" onclick="reloadPage()"  type="submit" form="search" id="searchButton" >Search</button>
+    <div id="results" style=" margin-top: 20px;
+    text-align: left;"></div>
+</div>
+
+</form>
+    </div>
+</div>
+
+
+
+
+<h2 style='text-align: center; margin :40; ' id="myParagraph"></h2>
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    var clickCount = 0;
+
+function reloadPage() {
+    clickCount++;
+
+    if (clickCount === 2) {
+        location.reload(true);
+
+
+
+
+    } else {
+
+         $("#search").submit(function (event) {
+                 event.preventDefault(); //to prevent the default behaviour of submit button (test it to make sure)
+
+                  productName = document.getElementById('searchInput').value
+
+                 var url = "https://localhost:8080/market/products/search?q="+productName
+                 $.ajax({
+                     url: url,
+                     type: "GET",
+                     datatype: "json",
+
+
+                     success: function (data) {
+
+                         console.log(data)
+
+                         if(data.data.length==0){
+
+
+
+                        var paragraphElement = document.getElementById("myParagraph");
+                        paragraphElement.innerText = "THERE IS NO SUCH PRODUCT !";
+
+
+
+
+                         }
+
+                         else{
+                         $("#search").append("<tr><td>PRODUCT ID</td><td>PRODUCT DESCRIPTION</td><td>PRODUCT IMAGE</td><td>PRODUCT NAME</td><td>PRODUCT PRICE</td></tr>" );
+
+                         for (i = 0; i < data.data.length; i++) {
+
+
+
+
+
+                               $("#search").append("<tr><td>"+ data.data[i].id +"</td><td>"
+                                                             +data.data[i].productDescription+"</td><td><img src='images/shop/products/"+data.data[i].productImage+"' alt='' id='product-image1'></td><td><a href='product-single.html?pID="+data.data[i].id+ "'target='_balnk'>"
+                                                             +data.data[i].productName+"</a></td><td>"
+                                                             +data.data[i].productPrice+"</td></tr>"
+
+
+                                          );
+
+
+                     }
+
+
+
+                    }
+
+                     },
+                     error: function () {
+
+                         console.log("error")
+                     }
+                 })
+             })
+
+
+    }
+}
+
+
+
+
+</script>
+<script src="js/header.js"></script>
+</body>
+</html>

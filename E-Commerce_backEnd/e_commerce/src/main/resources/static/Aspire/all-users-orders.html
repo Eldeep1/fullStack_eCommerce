@@ -44,20 +44,56 @@
 <!-- Main Menu Section -->
 <section class="menu" id="main-menu"></section>
 
-<section class="empty-cart page-wrapper">
+
+
+<section class="page-header">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="content">
+					<h1 class="page-name">Dashboard</h1>
+					<ol class="breadcrumb">
+						<li><a href="index.html">Home</a></li>
+						<li class="active">my account</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<section class="user-dashboard page-wrapper">
   <div class="container">
     <div class="row">
-      <div class="col-md-6 col-md-offset-3">
-        <div class="block text-center">
-        	<i class="tf-ion-ios-cart-outline"></i>
-          	<h2 class="text-center">Your cart is currently empty.</h2>
-          	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore, sed.</p>
-          	<a href="index.html" class="btn btn-main mt-20">Return to shop</a>
+      <div class="col-md-12">
+        <ul class="list-inline dashboard-menu text-center" id="dashboardItems">
+		  <li><a href="profile-details.html">Profile Details</a></li>
+          <li><a href="order.html">Orders</a></li>
+          
+        </ul>
+        <div class="dashboard-wrapper dashboard-user-profile">
+            <div class="block">
+                <div class="product-list">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th class="">Order ID</th>
+                          <th class="">Order Status</th>
+                          <th class="">Date</th>
+                          <th class="">price</th>
+                          <th class="">Product ID</th>
+                          <th class="">Quantity</th>
+                          <th class="">User ID</th>
+                        </tr>
+                      </thead>
+                      <tbody id="cart"></tbody>
+                    </table>
+                </div>
+              </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
-
 <footer class="footer section text-center">
 	<div class="container">
 		<div class="row">
@@ -103,13 +139,61 @@
 		</div>
 	</div>
 </footer>
-
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
-integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	
-	<script src="js/header.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+	integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script>
+	$(document).ready(function(){
+        var cartId;
+		function viewCart() {
+            $('#cart').empty();
+
+            var url = "https://localhost:8080/market/Orders/viewAll"
+            $.ajax({
+                url: url,
+                type: "GET",
+                datatype: "json",
+				contentType: "application/json",
+				headers: {
+                		'Authorization': 'Bearer ' + localStorage.getItem("token")
+           		},
+                success: function (response) {
+                    products = response.data;
+					if(products.length >= 1){
+						for (i = 0; i < products.length; i++) {
+						var productHTML = `
+							<tr class="">
+
+								<td class="">${products[i].orderId}</td>
+								<td class="">${products[i].orderStatus}</td>
+								<td class="">${products[i].date}</td>
+								<td class="">$${products[i].price}</td>
+								<td class="">${products[i].productId}</td>
+								<td class="">${products[i].quantity}</td>
+								<td class="">${products[i].userId}</td>
+							</tr>
+							`;
+                        $("#cart").append(productHTML);
+						}
+					}else{
+						window.location.href = "empty-cart.html";
+					}
+                    
+                },
+                error: function (one, two, error) {
+                    console.log(one, two, error);
+                }
+            })
+
+        }
+        viewCart();
+	});
+	
+	</script>
+
+	
+	
     <!-- 
     Essential Scripts
     =====================================-->
@@ -137,7 +221,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <!-- Main Js File -->
     <script src="js/script.js"></script>
-    
+    <script src="js/header.js"></script>
 
 
   </body>

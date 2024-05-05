@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 
 
-
 <html lang="en">
 <head>
 
@@ -39,7 +38,7 @@
 
 <body id="body">
 
-<section class="forget-password-page account">
+<section class="signin-page account">
   <div class="container">
     <div class="row">
       <div class="col-md-6 col-md-offset-3">
@@ -47,23 +46,60 @@
           <a class="logo" href="index.html">
             <img src="images/logo.png" alt="">
           </a>
-          <h2 class="text-center">Welcome Back</h2>
-          <form class="text-left clearfix">
-            <p>Please enter the email address for your account. A verification code will be sent to you. Once you have received the verification code, you will be able to choose a new password for your account.</p>
+          <h2 class="text-center">ENTER YOUR EMAIL</h2>
+          <div id="warning"></div>
+          
+          <form class="text-left clearfix" id="check-email" action="#" >
             <div class="form-group">
-              <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Account email address">
+              <input type="email" class="form-control" id="email"  placeholder="Email">
             </div>
             <div class="text-center">
-              <button type="submit" class="btn btn-main text-center">Request password reset</button>
+              <button type="submit" class="btn btn-main text-center" >Check</button>
             </div>
           </form>
-          <p class="mt-20"><a href="login.html">Back to log in</a></p>
+          <p class="mt-20">Remembered Your Password?<a href="login.html"> Go Back To Login </a></p>
         </div>
       </div>
     </div>
   </div>
 </section>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+  integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+  <script>
+    $(document).ready(function(){
+        $("#check-email").submit(function (event) {
+            event.preventDefault(); //to prevent the default behaviour of submit button
+            var url = "https://localhost:8080/market/auth/checkMail";
+            var email = document.getElementById('email').value
+            $.ajax({
+                url: url,
+                type: "POST",
+                datatype: "json",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    email: email
+                }),
+                success: function () {
+                    localStorage.setItem("email", email);
+
+                    window.location.href = "reset-password.html?#";
+                    
+                },
+                error: function (one, two, error) {
+                    $("#warning").html('<div class="alert alert-danger alert-common" role="alert"><i class="tf-ion-close-circled"></i>EMAIL DOES NOT EXIST</div>');
+                }
+            })
+      });
+    });
+
+
+
+
+  </script>
     <!-- 
     Essential Scripts
     =====================================-->
@@ -86,8 +122,8 @@
     <script src="plugins/slick/slick-animation.min.js"></script>
 
     <!-- Google Mapl -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC72vZw-6tGqFyRhhg5CkF2fqfILn2Tsw"></script>
-    <script type="text/javascript" src="plugins/google-map/gmap.js"></script>
+    
+    
 
     <!-- Main Js File -->
     <script src="js/script.js"></script>

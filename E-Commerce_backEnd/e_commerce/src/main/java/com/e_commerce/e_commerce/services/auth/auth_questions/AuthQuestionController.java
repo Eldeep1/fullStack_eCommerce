@@ -14,15 +14,9 @@ import com.e_commerce.e_commerce.helper.ResponseHelper;
 public class AuthQuestionController {
     @Autowired 
     private AuthQuestionServices authQuestionServices;
-    private ResponseHelper responseHelper = new ResponseHelper();
-    
+
     @GetMapping("questinos")
     public ResponseEntity<Object>  getAuthQuestions() {
-
-        try {
-            return responseHelper.createSuccessResponse("returned sucessfully", authQuestionServices.getAuthQuestions());
-        } catch (Exception e) {
-            return responseHelper.createErrorResponse(HttpStatus.BAD_REQUEST, "can't load auth questions", null);
-        }
+        return authQuestionServices.getAuthQuestionsServ();
     }
 }

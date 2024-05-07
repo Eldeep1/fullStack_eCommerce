@@ -10,10 +10,17 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name="cart")
 public class Cart {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="cart_id")
@@ -22,15 +29,13 @@ public class Cart {
     private OrderItem orderItem;
     private String productName;
     private String productImage;
-    
-    public Cart(){
-        orderItem=new OrderItem();
-    }
+
+
     public Cart(Map<String,Object> data){
         this.orderItem=new OrderItem(data);
         this.productImage=(String)data.get("productImage");
         this.productName=(String)data.get("productName");
-    
+
     }
     public Map<Object, Object> toMap() {
         Map<Object, Object> data = new LinkedHashMap<>();
@@ -41,15 +46,7 @@ public class Cart {
         return data;
     }
 
-    public String getProductName() {
-        return productName;
-    }
-    public int getCartId() {
-        return cartId;
-    }
-    public String getProductImage() {
-        return productImage;
-    }
+
      public int getUserId() {
         return orderItem.getUserId();
     }
@@ -57,7 +54,6 @@ public class Cart {
     public int getProductId() {
         return  orderItem.getProductId();
     }
-
 
     public int getQuantity() {
         return orderItem.getQuantity();

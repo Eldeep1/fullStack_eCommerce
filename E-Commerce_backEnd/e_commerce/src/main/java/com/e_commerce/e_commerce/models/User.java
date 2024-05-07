@@ -5,6 +5,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,6 +21,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 @Entity
 @Table(name="user")
 public class User implements UserDetails{
@@ -48,12 +54,6 @@ public class User implements UserDetails{
     @Enumerated(value = EnumType.STRING)
     private Role role;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public User(){}
-
     public User(Map<String,Object> data) {
         this.firstName = (String)data.get("firstName");
         this.lastName=(String)data.get("lastName");
@@ -66,7 +66,7 @@ public class User implements UserDetails{
     }
 
     
-public Map<Object, Object> userToMap() {
+    public Map<Object, Object> userToMap() {
     Map<Object, Object> data = new LinkedHashMap<>(); 
 
     // Add user properties to the map
@@ -81,39 +81,14 @@ public Map<Object, Object> userToMap() {
 }
 
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getUsername() {
-        return userName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-
-    public Role getRole() {
-        return role;
-    }
-
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
+    }
+
+    @Override
+    public String getUsername() {
+        return userName;
     }
 
     @Override
@@ -136,13 +111,8 @@ public Map<Object, Object> userToMap() {
         return true;
     }
 
-    
-    
-    
-    public String getAuthQuestionAnswer() {
-        return this.authQuestionAnswer;
-    }
-    
+
+
     public String getQuestionId() {
         return this.authQuestionId;
     }

@@ -25,6 +25,7 @@ public class ProductsModel {
         }
         return productRepository.searchForProducts(keyword);
     }
+
     public Products getProduct(int productId){
         Optional<Products> optionalProduct = productRepository.findById(productId);
         return optionalProduct.orElse(null); // Or throw an exception if necessary
@@ -38,4 +39,15 @@ public class ProductsModel {
             return false;
         }
     }
+
+    public Boolean addProduct(Map<String,Object> data){
+        try {
+            addProducts(data);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+
+    }
+
 }

@@ -45,8 +45,9 @@ public class CartService {
             Cart cart = new Cart(cartAsMap);
 
             if (Boolean.TRUE.equals(securityHelper.checkUserCredantials(cartAsMap))) {
+                System.out.println(Boolean.TRUE.equals(cartModel.addToCart(cart)));
                 if(Boolean.TRUE.equals(cartModel.addToCart(cart)))
-                    responseHelper.createSuccessResponse("item added Successfully", cart);
+                    return responseHelper.createSuccessResponse("item added Successfully", cart);
                 throw new Exception("Internal Error : Can't add the cart item to database !");
             } else {
                 throw new Exception("Unauthorized Access ! ");
@@ -65,7 +66,7 @@ public class CartService {
                 System.out.println("We are here 1 ");
                 if(Boolean.TRUE.equals(cartModel.removeFromCart(cartId))){
                     System.out.println("We are here 2 ");
-                    responseHelper.createSuccessResponse("item removed Successfully", null);
+                    return responseHelper.createSuccessResponse("item removed Successfully", null);
                 }
                 throw new Exception("Internal Error : Can't remove the item from the database !");
             } else

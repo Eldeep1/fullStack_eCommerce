@@ -36,7 +36,7 @@ public class PasswordService {
             }
 
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error while resetting password "+e.getMessage());
         }
     }
 
@@ -50,7 +50,7 @@ public class PasswordService {
                 throw  new Exception("can not find email");
 
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error while checking email "+e.getMessage());
         }
     }
 

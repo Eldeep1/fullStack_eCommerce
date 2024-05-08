@@ -23,19 +23,14 @@ public class CartService {
 
     public ResponseEntity<Object> viewCartItemsServ(@RequestBody Map<String, Object> data) {
         try {
-            if (Boolean.TRUE.equals(securityHelper.checkUserCredantials(data))) {
-
                 int userId = (int) data.get("userId");
                 if(cartModel.getUsersCart(userId).isEmpty()){
                     throw new Exception("There is no carts for this user !");
                 }
                 return responseHelper.createSuccessResponse("cart loaded Successfully", cartModel.getUsersCart(userId));
 
-            } else {
-                throw new Exception("Unauthorized Access ! ");
-            }
         } catch (Exception e){
-            throw new RuntimeException("Error While view cart items !");
+            throw new RuntimeException("Error While view cart items !"+e.getMessage());
         }
 
     }
@@ -43,15 +38,11 @@ public class CartService {
     public ResponseEntity<Object> addCartItemsServ(@RequestBody Map<String, Object> cartAsMap) {
         try {
             Cart cart = new Cart(cartAsMap);
+            System.out.println(Boolean.TRUE.equals(cartModel.addToCart(cart)));
+            if(Boolean.TRUE.equals(cartModel.addToCart(cart)))
+                return responseHelper.createSuccessResponse("item added Successfully", cart);
+            throw new Exception("Internal Error : Can't add the cart item to database !");
 
-            if (Boolean.TRUE.equals(securityHelper.checkUserCredantials(cartAsMap))) {
-                System.out.println(Boolean.TRUE.equals(cartModel.addToCart(cart)));
-                if(Boolean.TRUE.equals(cartModel.addToCart(cart)))
-                    return responseHelper.createSuccessResponse("item added Successfully", cart);
-                throw new Exception("Internal Error : Can't add the cart item to database !");
-            } else {
-                throw new Exception("Unauthorized Access ! ");
-            }
         } catch (Exception e){
             throw new RuntimeException("Error While adding cart items ! ");
         }
@@ -59,7 +50,6 @@ public class CartService {
 
     public ResponseEntity<Object> removeCartFromItemsServ(@RequestBody Map<String, Object> data) {
         try {
-            if (Boolean.TRUE.equals(securityHelper.checkUserCredantials(data))) {
                 if(Boolean.FALSE.equals(securityHelper.checkCartOwner(data)))
                     throw new Exception("Unauthorized Access ! ");
                 int cartId = (int) data.get("cartId");
@@ -69,8 +59,6 @@ public class CartService {
                     return responseHelper.createSuccessResponse("item removed Successfully", null);
                 }
                 throw new Exception("Internal Error : Can't remove the item from the database !");
-            } else
-                throw new Exception("Unauthorized Access ! ");
         } catch (Exception e){
             throw new RuntimeException("Error While remove cart item ! ");
         }

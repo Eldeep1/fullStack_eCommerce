@@ -18,9 +18,9 @@ public class RegisterModel {
     private  SecurityHelper securityHelper;
     
     public  String createUser(User user) {
-        try {
+
             if(Boolean.TRUE.equals(checkForEmail(user.getEmail()))){
-                throw new Exception("Used email ");
+                return "used Email";
             }
             else{
                 //there should be a functino that generates the token here !
@@ -30,9 +30,6 @@ public class RegisterModel {
                 return "created successfully";
             }
 
-        } catch (Exception e){
-            throw new RuntimeException("Error while adding user ! " + e.getMessage());
-        }
     }
 
     private Boolean checkForEmail(String email) {
@@ -40,21 +37,6 @@ public class RegisterModel {
         if (user==null)
             return false;
         return true;
-    }
-
-    public User hashedCredentials (Map<String,Object> credentials){
-
-        String hashedPassword = (String) credentials.get("password");
-        hashedPassword = securityHelper.hashString(hashedPassword);
-
-        credentials.put("password", hashedPassword);
-        credentials.put("role", credentials.get("role"));
-
-        String hashedAnswer = (String) credentials.get("questinoAnswer");
-        hashedAnswer = securityHelper.hashString(hashedAnswer);
-        credentials.put("questinoAnswer", hashedAnswer);
-        User user = new User(credentials);
-        return user;
     }
 
     public  String signUp(User user){

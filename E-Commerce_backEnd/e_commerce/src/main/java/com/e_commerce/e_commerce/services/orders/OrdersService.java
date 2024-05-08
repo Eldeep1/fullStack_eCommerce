@@ -47,8 +47,10 @@ public class OrdersService {
         try {
             int orderId = (int) order.get("orderId");
             String newStatus = (String) order.get("newStatus");
+            System.out.println("11111111111111");
             if(Boolean.TRUE.equals(ordersModel.updateOrderStatus(orderId, newStatus))){
-                responseHelper.createSuccessResponse("order updated Successfully", null);
+                System.out.println("2222222222222");
+                return responseHelper.createSuccessResponse("order updated Successfully", null);
             }
             throw new Exception("Error while adding order in database !");
 

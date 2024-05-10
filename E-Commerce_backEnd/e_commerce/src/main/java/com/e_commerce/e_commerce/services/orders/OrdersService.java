@@ -47,15 +47,13 @@ public class OrdersService {
         try {
             int orderId = (int) order.get("orderId");
             String newStatus = (String) order.get("newStatus");
-            System.out.println("11111111111111");
             if(Boolean.TRUE.equals(ordersModel.updateOrderStatus(orderId, newStatus))){
-                System.out.println("2222222222222");
                 return responseHelper.createSuccessResponse("order updated Successfully", null);
             }
             throw new Exception("Error while adding order in database !");
 
         } catch (Exception e){
-            throw new RuntimeException("Error while update order status !");
+            throw new RuntimeException("Error while update order status !"+e.getMessage());
         }
     }
 
@@ -78,7 +76,7 @@ public class OrdersService {
             return responseHelper.createSuccessResponse("Orders Added Successfully", null);
 
         } catch (Exception e) {
-            throw  new RuntimeException("Error while adding order ");
+            throw  new RuntimeException("Error while adding order "+e.getMessage());
         }
     }
 
@@ -89,7 +87,7 @@ public class OrdersService {
             throw new Exception("There is no orders");
 
         } catch (Exception e){
-            throw new RuntimeException("Error while view all orders ");
+            throw new RuntimeException("Error while view all orders " + e.getMessage());
         }
 
     }

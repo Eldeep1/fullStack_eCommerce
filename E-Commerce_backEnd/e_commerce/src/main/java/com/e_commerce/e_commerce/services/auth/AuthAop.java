@@ -1,6 +1,7 @@
 package com.e_commerce.e_commerce.services.auth;
 
 import com.e_commerce.e_commerce.helper.ResponseHelper;
+import com.e_commerce.e_commerce.helper.SecurityHelper;
 import com.e_commerce.e_commerce.helper.Validation;
 import com.e_commerce.e_commerce.models.User;
 import com.e_commerce.e_commerce.services.auth.forget_password.PasswordService;
@@ -30,6 +31,7 @@ public class AuthAop {
     private final ResponseHelper responseHelper;
     private final Validation validation;
     private final LoginService loginService;
+    private final SecurityHelper securityHelper;
 
     @Around(value = "execution(* com.e_commerce.e_commerce.services.auth.signup.RegisterController.signup(..))")
     public ResponseEntity<Object> aroundAdviceSignup(ProceedingJoinPoint joinPoint) {
@@ -113,6 +115,25 @@ public class AuthAop {
             System.out.println("performance of Method " + joinPoint.getSignature() +
                     " executed in " + executionTime + " milliseconds");
             return result;
+        } catch (Exception e){
+            // Getting only the method name not all the path
+            return responseHelper.createErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR,
+                    "AOP, Error while executing method " +((MethodSignature) joinPoint.getSignature()).getName(),e.getMessage());
+        }
+
+    }
+
+    @Around(value = "execution(* com.e_commerce.e_commerce.services.cart.CartController.*(..))")
+    public ResponseEntity<Object> aroundCartController(ProceedingJoinPoint joinPoint) throws Throwable {
+        try {
+            Object[] args = joinPoint.getArgs();
+            Map<String, Object> data = (Map<String, Object>) args[0];
+            if (Boolean.TRUE.equals(securityHelper.checkUserCredantials(data))){
+                ResponseEntity<Object> response = (ResponseEntity<Object>) joinPoint.proceed();
+                return response;
+            } else {
+            throw new Exception("Unauthorized Access ! ");
+        }
         } catch (Exception e){
             // Getting only the method name not all the path
             return responseHelper.createErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR,
